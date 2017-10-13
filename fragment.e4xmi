@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="ASCII"?>
+<fragment:ModelFragments xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:basic="http://www.eclipse.org/ui/2010/UIModel/application/descriptor/basic" xmlns:fragment="http://www.eclipse.org/ui/2010/UIModel/fragment" xmi:id="_BxaXACerEeWxCPrV0pAZQQ">
+  <fragments xsi:type="fragment:StringModelFragment" xmi:id="_EI7oACerEeWxCPrV0pAZQQ" featurename="descriptors" parentElementId="xpath:/">
+    <elements xsi:type="basic:PartDescriptor" xmi:id="_KMklcCerEeWxCPrV0pAZQQ" elementId="org.tec.datos1.flow.mainview" label="FlowChart" iconURI="platform:/plugin/org.tec.datos1.flow/icons/002-flow-1.png" tooltip="" category="Flow" contributionURI="bundleclass://org.tec.datos1.flow/org.tec.datos1.flow.parts.DiagramView">
+      <tags>View</tags>
+      <tags>categoryTag:Sample Category</tags>
+      <toolbar xmi:id="_lQtwcK_REeeYCvxE0peUaw" elementId="org.tec.datos1.flow.toolbar.0"/>
+    </elements>
+  </fragments>
+</fragment:ModelFragments>

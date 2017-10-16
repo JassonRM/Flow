@@ -11,17 +11,27 @@ import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.core.dom.AST;
 import org.eclipse.jdt.core.dom.ASTParser;
 import org.eclipse.jdt.core.dom.CompilationUnit;
+import org.eclipse.jdt.debug.core.IJavaThread;
+import org.eclipse.jdt.debug.core.JDIDebugModel;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PlatformUI;
+import org.tec.datos1.flow.debug.DebugListener;
+import org.tec.datos1.flow.storage.ASTStorage;
 
 public class Handler extends AbstractHandler {
-
+	public static IJavaThread thread = null;
     @Override
+    
     public Object execute(ExecutionEvent event) throws ExecutionException {
     	
     	IWorkbenchPart workbenchPart = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActivePart();
     	ICompilationUnit IcUnit = null;
     	try{
+    		if (thread != null){
+    			thread.stepInto();
+    			return null;
+    		}
+    		
     		IFile file = (IFile) workbenchPart.getSite().getPage().getActiveEditor().getEditorInput().getAdapter(IFile.class);
     		IcUnit = (ICompilationUnit) JavaCore.create(file);
     	}catch(Exception e) {
@@ -30,6 +40,8 @@ public class Handler extends AbstractHandler {
     	}
     	try {
     		createAST(IcUnit);
+    		JDIDebugModel.addJavaBreakpointListener(new DebugListener());
+
     	}catch(JavaModelException exeption){}
     	
 		return null;
@@ -39,7 +51,7 @@ public class Handler extends AbstractHandler {
             throws JavaModelException {
     	
             CompilationUnit parse = parse(IcUnit);
-
+            ASTStorage.setCompUnit(parse);
             MethodVisitor visitor = new MethodVisitor();
             parse.accept(visitor);
             
@@ -54,7 +66,7 @@ public class Handler extends AbstractHandler {
      */
 
     public static CompilationUnit parse(ICompilationUnit unit) {
-        ASTParser parser = ASTParser.newParser(AST.JLS2);
+        ASTParser parser = ASTParser.newParser(AST.JLS3);
         parser.setKind(ASTParser.K_COMPILATION_UNIT);
         parser.setSource(unit);
         parser.setResolveBindings(true);

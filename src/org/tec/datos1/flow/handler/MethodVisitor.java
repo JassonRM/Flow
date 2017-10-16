@@ -20,6 +20,7 @@ import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.MethodInvocation;
 import org.eclipse.jdt.core.dom.TryStatement;
 import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
+import org.eclipse.jdt.core.dom.VariableDeclarationStatement;
 import org.eclipse.jdt.core.dom.WhileStatement;
 
 import org.tec.datos1.flow.storage.ASTStorage;
@@ -37,8 +38,8 @@ public class MethodVisitor extends ASTVisitor {
     			Root.addChild(storageMethod);
     			Block b1 = (Block)methodNode.getBody();
     			addChildren(storageMethod, b1.statements());
-    			storageMethod.print(0);
-    			System.out.println(getRoot());
+    			storageMethod.print();
+    			//System.out.println(getRoot());
     			
     	}catch(Exception ex) { ex.printStackTrace();}
 
@@ -161,8 +162,8 @@ public class MethodVisitor extends ASTVisitor {
 			
 			//System.out.println("Expression:" + Expression.getExpression());
 		
-		}else if (clazz.equalsIgnoreCase("VariableDeclarationFragment")) {
-			VariableDeclarationFragment Variable = (VariableDeclarationFragment) child;
+		}else if (clazz.equalsIgnoreCase("VariableDeclarationStatement")) {
+			VariableDeclarationStatement Variable = (VariableDeclarationStatement) child;
 			ASTStorage VariableStorage = new ASTStorage(Variable,parent,Variable.toString());
 			parent.addChild(VariableStorage);
 		}else {

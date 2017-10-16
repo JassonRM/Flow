@@ -22,6 +22,9 @@ import org.tec.datos1.flow.graphics.While;
 public class DiagramView {
 	@Inject
 	public DiagramView(Composite parent) {
+		
+		
+		
 		//Todavia no funciona el scroll
 		ScrolledComposite canvas = new ScrolledComposite(parent, SWT.BORDER | SWT.V_SCROLL | SWT.H_SCROLL);
 		canvas.setExpandHorizontal(true);

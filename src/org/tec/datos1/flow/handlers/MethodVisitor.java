@@ -4,22 +4,17 @@ package org.tec.datos1.flow.handlers;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.jdt.core.ICompilationUnit;
-import org.eclipse.jdt.core.IJavaElement;
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.ASTVisitor;
 import org.eclipse.jdt.core.dom.Block;
-import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.eclipse.jdt.core.dom.DoStatement;
 import org.eclipse.jdt.core.dom.EnhancedForStatement;
 import org.eclipse.jdt.core.dom.ExpressionStatement;
 import org.eclipse.jdt.core.dom.ForStatement;
-import org.eclipse.jdt.core.dom.IMethodBinding;
 import org.eclipse.jdt.core.dom.IfStatement;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.MethodInvocation;
 import org.eclipse.jdt.core.dom.TryStatement;
-import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
 import org.eclipse.jdt.core.dom.VariableDeclarationStatement;
 import org.eclipse.jdt.core.dom.WhileStatement;
 
@@ -35,6 +30,7 @@ public class MethodVisitor extends ASTVisitor {
     	try {
     			
     			ASTStorage storageMethod = new ASTStorage(methodNode,Root,methodNode.getName().toString());
+    			ASTStorage.setRoot(storageMethod);
     			Root.addChild(storageMethod);
     			Block b1 = (Block)methodNode.getBody();
     			addChildren(storageMethod, b1.statements());
@@ -43,7 +39,7 @@ public class MethodVisitor extends ASTVisitor {
     			
     	}catch(Exception ex) { ex.printStackTrace();}
 
-    	methods.add(methodNode);
+    		methods.add(methodNode);
         return super.visit(methodNode);
     }
    

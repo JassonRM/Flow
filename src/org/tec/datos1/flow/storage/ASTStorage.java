@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.jdt.core.dom.ASTNode;
-import org.eclipse.jdt.core.dom.Block;
 import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.eclipse.jdt.core.dom.DoStatement;
 import org.eclipse.jdt.core.dom.EnhancedForStatement;
@@ -16,23 +15,24 @@ import org.eclipse.jdt.core.dom.IfStatement;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.MethodInvocation;
 import org.eclipse.jdt.core.dom.TryStatement;
-import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
 import org.eclipse.jdt.core.dom.VariableDeclarationStatement;
 import org.eclipse.jdt.core.dom.WhileStatement;
 
 public class ASTStorage {
+	
+	static ASTStorage root;
 	String Name;
 	ASTNode Element;
 	List<ASTStorage> Children;
 	Boolean then;
-	ASTStorage Parent;
+	//ASTStorage Parent;
 	static CompilationUnit compilationUnit;
 	
 	
 	public ASTStorage(ASTNode Element,ASTStorage Parent,String Name) {
 		this.Element = Element;
 		this.Children = new ArrayList<ASTStorage>();
-		this.Parent = Parent;
+		//this.Parent = Parent;
 		this.Name = Name;
 	}
 	
@@ -47,18 +47,25 @@ public class ASTStorage {
 		this.then = then;
 	}
 	
+	public static ASTStorage getRoot(){
+		return root;
+	}
+	
+	public static void setRoot(ASTStorage Root) {
+		root = Root;
+	}
 	
 	public void addChild(ASTStorage Child) {
 		Children.add(Child);
 	}
 	
-	public void setParent(ASTStorage parent) {
-		this.Parent = parent;
-	}
-	
-	public ASTStorage getParent() {
-		return this.Parent;
-	}
+//	public void setParent(ASTStorage parent) {
+//		this.Parent = parent;
+//	}
+//	
+//	public ASTStorage getParent() {
+//		return this.Parent;
+//	}
 
 	public ASTNode getElement() {
 		return this.Element;
@@ -75,6 +82,24 @@ public class ASTStorage {
 
 	public static void setCompUnit(CompilationUnit compUnit) {
 		compilationUnit = compUnit;
+	}
+	
+	public ASTStorage findLine(Integer lineNumber) {
+		
+		if (Element != null && (compilationUnit.getLineNumber(Element.getStartPosition()) == lineNumber)) {
+			return this;
+		}else if (Children.size() != 0) {
+			for (ASTStorage child : Children) {
+				ASTStorage tempNode = child.findLine(lineNumber);
+				if ( tempNode != null)
+					return tempNode;
+			
+			}
+		}else{
+			return null;
+		}
+		return null;
+
 	}
 	
 	public void print() {

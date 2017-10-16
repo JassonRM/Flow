@@ -13,7 +13,7 @@ import org.eclipse.jdt.debug.core.IJavaDebugTarget;
 import org.eclipse.jdt.debug.core.IJavaLineBreakpoint;
 import org.eclipse.jdt.debug.core.IJavaThread;
 import org.eclipse.jdt.debug.core.IJavaType;
-import org.tec.datos1.flow.handler.Handler;
+import org.tec.datos1.flow.handlers.Handler;
 
 public class DebugListener implements IJavaBreakpointListener{
 

@@ -27,7 +27,7 @@
          point="org.eclipse.ui.handlers">
       <handler
             commandId="org.tec.datos1.flow.commands.RunCommand"
-            class="org.tec.datos1.flow.handler.Handler">
+            class="org.tec.datos1.flow.handlers.Handler">
       </handler>
    </extension>
    <extension

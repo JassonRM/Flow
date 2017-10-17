@@ -67,5 +67,12 @@
          </toolbar>
       </menuContribution>
    </extension>
+   <extension
+       	point="org.eclipse.jdt.debug.breakpointListeners">
+   		<breakpointActionDelegate
+          	class="org.tec.datos1.flow.debug.DebugListener.java"
+          	id="org.tec.datos1.flow.breakpoint.action">
+    	</breakpointActionDelegate>
+	</extension>
 
 </plugin>

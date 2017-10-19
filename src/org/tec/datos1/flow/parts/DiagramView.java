@@ -36,7 +36,7 @@ public class DiagramView {
 		canvas.addPaintListener(new PaintListener() {
 			@Override
 			public void paintControl(PaintEvent e) {
-				//Codigo donde que indica que se va a dibujar
+				//Codigo que indica que se va a dibujar
 			}
 		});
 	}

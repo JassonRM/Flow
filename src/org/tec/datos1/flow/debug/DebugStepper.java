@@ -1,7 +1,9 @@
 package org.tec.datos1.flow.debug;
 
 import org.eclipse.debug.core.DebugException;
+import org.eclipse.debug.core.model.IStackFrame;
 import org.eclipse.jdt.debug.core.IJavaThread;
+
 
 public class DebugStepper {
 	
@@ -14,14 +16,26 @@ public class DebugStepper {
 
 	public static void setDebugThread(IJavaThread DebugThread) {
 		debugThread = DebugThread;
+		
 	}
 	
 	public static void stepInto() {
 		try {
+			
+			
 			debugThread.stepInto();
+			update();
+			
+//			Thread p = (Thread)debugThread.getThreadObject();
+//			
+//			System.out.println(p.getStackTrace()[0].getClassName());
+//			System.out.println(p.getStackTrace()[0].getMethodName());
+//			System.out.println(p.getStackTrace()[0].getLineNumber());
+			
 		} catch (DebugException e) {
 			e.printStackTrace();
 		}
+		
 	}
 	
 	public static void stepOver() {
@@ -30,6 +44,33 @@ public class DebugStepper {
 		} catch (DebugException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public static void update(){
+		
+		try {
+			
+			IStackFrame Frame = null;
+			
+			
+			//solucionar...
+			while (Frame == null) {
+				 
+				//auxThread.suspend();
+				Frame = debugThread.getTopStackFrame();
+				//System.out.println(Frame);
+				}
+			System.out.println(Frame.getLineNumber());
+			
+			
+			
+			
+			
+		} catch (DebugException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 	
 	public static void resume() {

@@ -29,12 +29,13 @@ public class DebugListener implements IJavaBreakpointListener{
 		
 		DebugStepper.setDebugThread(thread);
 		
+		
 		ILineBreakpoint lineBreak = (ILineBreakpoint)breakpoint;
 		int numLinea = 0; 
 		try {
 			numLinea = lineBreak.getLineNumber();
-			ASTStorage storage = ASTStorage.getRoot().findLine(numLinea);
-			storage.print();
+			//ASTStorage storage = ASTStorage.getRoot().findLine(numLinea);
+			//storage.print();
 			//storage.print();
 		}catch(CoreException e) {}
 		

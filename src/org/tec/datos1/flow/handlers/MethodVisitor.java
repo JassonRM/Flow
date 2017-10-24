@@ -139,7 +139,14 @@ public class MethodVisitor extends ASTVisitor {
 			
 			ExpressionStatement Expression = (ExpressionStatement) child;
 			
+			
+			
+			
 			try{
+				//System.out.println(Expression);
+				Handler.createAST2 (Expression.toString());
+				System.out.println("____________________");
+				
 				MethodInvocation methodInvocation = (MethodInvocation) Expression.getExpression();
 				ASTStorage MethoInvocationStorage = new ASTStorage(methodInvocation, parent, methodInvocation.toString());
 				parent.addChild(MethoInvocationStorage);

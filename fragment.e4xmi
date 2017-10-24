@@ -5,6 +5,7 @@
       <tags>View</tags>
       <tags>categoryTag:Sample Category</tags>
     </elements>
+    <elements xsi:type="basic:PartDescriptor" xmi:id="_jUrowLSLEee5R71WDPj1cA" elementId="org.tec.datos1.explorer" label="Method Explorer" iconURI="platform:/plugin/org.tec.datos1.flow/icons/005-browser.png" category="Flow" contributionURI="bundleclass://org.tec.datos1.flow/org.tec.datos1.flow.parts.ExplorerView"/>
   </fragments>
   <fragments xsi:type="fragment:StringModelFragment" xmi:id="_g64RQK_UEeeYCvxE0peUaw" featurename="handlers" parentElementId="xpath:/">
     <elements xsi:type="commands:Handler" xmi:id="_xotggK_UEeeYCvxE0peUaw" elementId="org.tec.datos1.flow.handler.stepin" contributionURI="bundleclass://org.tec.datos1.flow/org.tec.datos1.flow.handlers.StepInHandler" command="_K1w-0K_VEeeYCvxE0peUaw"/>

@@ -30,7 +30,7 @@ public class MethodVisitor extends ASTVisitor {
     	try {
     			
     			ASTStorage storageMethod = new ASTStorage(methodNode,Root,methodNode.getName().toString());
-    			ASTStorage.setRoot(storageMethod);
+    			ASTStorage.setRoot(Root);
     			Root.addChild(storageMethod);
     			Block b1 = (Block)methodNode.getBody();
     			addChildren(storageMethod, b1.statements());
@@ -49,17 +49,25 @@ public class MethodVisitor extends ASTVisitor {
     public List<ASTStorage> getRoot() {
     	return Root.getChildren();
     }
-    
-    public static String addChildren(ASTStorage parent, List<Block> Statements) {
+    /**
+     * Este metodo se encarga de descomponer el AST de eclipse en una estructura 
+     * más simple 
+     * @param parent Nodo padre al que se le agregaran los componentes hijos
+     * @param Statements Lista de nodos hijos por agregar 
+     */
+    public static void addChildren(ASTStorage parent, List<Block> Statements) {
     	
     	for (Object statement : Statements) {
 			ASTNode child = (ASTNode) statement;
 			addChildrenAux(parent,child);
 			//ASTNode.nodeClassForType(node2.getNodeType());
     	}
-    	return null; 
     }
-    
+    /**
+     * Este metodo auxiliar asiste al metodo addChildren para complir su función
+     * @param parent Nodo padre al que se le agregaran los componentes hijos
+     * @param Statements Nodo hijo por agregar 
+     */
 	@SuppressWarnings("unchecked")
 	public static void addChildrenAux(ASTStorage parent, ASTNode child) {
 		String[] clazz_aux = child.getClass().toString().split("\\.");
@@ -144,8 +152,8 @@ public class MethodVisitor extends ASTVisitor {
 			
 			try{
 				//System.out.println(Expression);
-				Handler.createAST2 (Expression.toString());
-				System.out.println("____________________");
+				
+				
 				
 				MethodInvocation methodInvocation = (MethodInvocation) Expression.getExpression();
 				ASTStorage MethoInvocationStorage = new ASTStorage(methodInvocation, parent, methodInvocation.toString());

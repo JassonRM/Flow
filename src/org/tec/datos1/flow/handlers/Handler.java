@@ -54,14 +54,6 @@ public class Handler extends AbstractHandler {
             
     }
     
-    public static void createAST2( String IcUnit)
-            throws JavaModelException {
-    	
-            CompilationUnit parse = parse(IcUnit);
-            //ASTStorage.setCompUnit(parse);
-            System.out.println(parse);
-            
-    }
 
     /**
      * Reads a ICompilationUnit and creates the AST DOM for manipulating the
@@ -75,15 +67,6 @@ public class Handler extends AbstractHandler {
         ASTParser parser = ASTParser.newParser(AST.JLS3);
         parser.setKind(ASTParser.K_COMPILATION_UNIT);
         parser.setSource(unit);
-        parser.setResolveBindings(true);
-        
-        return (CompilationUnit) parser.createAST(null); // parse
-    }
-    
-    public static CompilationUnit parse(String unit) {
-        ASTParser parser = ASTParser.newParser(AST.JLS3);
-        parser.setKind(ASTParser.K_COMPILATION_UNIT);
-        parser.setSource(unit.toCharArray());
         parser.setResolveBindings(true);
         
         return (CompilationUnit) parser.createAST(null); // parse

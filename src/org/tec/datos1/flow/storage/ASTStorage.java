@@ -19,13 +19,11 @@ import org.eclipse.jdt.core.dom.VariableDeclarationStatement;
 import org.eclipse.jdt.core.dom.WhileStatement;
 
 public class ASTStorage {
-	
 	static ASTStorage root;
 	String Name;
 	ASTNode Element;
 	List<ASTStorage> Children;
-	Boolean then;
-	//ASTStorage Parent;
+	public Boolean then;
 	static CompilationUnit compilationUnit;
 	
 	
@@ -84,24 +82,26 @@ public class ASTStorage {
 		compilationUnit = compUnit;
 	}
 	
-	public ASTStorage findLine(Integer lineNumber) {
-		
-		if (Element != null && (compilationUnit.getLineNumber(Element.getStartPosition()) == lineNumber)) {
-			return this;
-		}else if (Children.size() != 0) {
-			for (ASTStorage child : Children) {
-				ASTStorage tempNode = child.findLine(lineNumber);
-				if ( tempNode != null)
-					return tempNode;
-			
-			}
-		}else{
-			return null;
-		}
-		return null;
-
-	}
-	
+//	public ASTStorage findLine(Integer lineNumber) {
+//		
+//		if (Element != null && (compilationUnit.getLineNumber(Element.getStartPosition()) == lineNumber)) {
+//			return this;
+//		}else if (Children.size() != 0) {
+//			for (ASTStorage child : Children) {
+//				ASTStorage tempNode = child.findLine(lineNumber);
+//				if ( tempNode != null)
+//					return tempNode;
+//			
+//			}
+//		}else{
+//			return null;
+//		}
+//		return null;
+//
+//	}
+	/**
+	 * Este método se encarga de mostrar todo lo que se encuentra dentro del arbol
+	 */
 	public void print() {
 		if (Element == null) {
 			if (this.then) {
@@ -125,6 +125,7 @@ public class ASTStorage {
 			} else if (clazz.equalsIgnoreCase("DoStatement")) {
 
 				DoStatement Do = (DoStatement) Element;
+				
 
 				System.out.println("Do While:" + Do.getExpression());
 
@@ -140,7 +141,7 @@ public class ASTStorage {
 
 			} else if (clazz.equalsIgnoreCase("IfStatement")) {
 				IfStatement If = (IfStatement) Element;
-
+				
 				System.out.println("If(" + If.getExpression() + ")");
 
 
@@ -170,6 +171,7 @@ public class ASTStorage {
 				
 				MethodDeclaration Method = (MethodDeclaration) Element;
 				
+				
 				System.out.println("Method: " + Method.getName() + " | Return Type: " + Method.getReturnType2() +
 						" | Parameters: " + Method.parameters());
 			
@@ -183,5 +185,7 @@ public class ASTStorage {
 
 		}
 	}
+
+
 	
 }

@@ -4,6 +4,17 @@ package org.tec.datos1.flow.parts;
 
 import javax.inject.Inject;
 
+import org.eclipse.jdt.core.dom.ASTNode;
+import org.eclipse.jdt.core.dom.DoStatement;
+import org.eclipse.jdt.core.dom.EnhancedForStatement;
+import org.eclipse.jdt.core.dom.ExpressionStatement;
+import org.eclipse.jdt.core.dom.ForStatement;
+import org.eclipse.jdt.core.dom.IfStatement;
+import org.eclipse.jdt.core.dom.MethodDeclaration;
+import org.eclipse.jdt.core.dom.MethodInvocation;
+import org.eclipse.jdt.core.dom.TryStatement;
+import org.eclipse.jdt.core.dom.VariableDeclarationStatement;
+import org.eclipse.jdt.core.dom.WhileStatement;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.ScrolledComposite;
 import org.eclipse.swt.events.PaintEvent;
@@ -18,6 +29,7 @@ import org.tec.datos1.flow.graphics.Line;
 import org.tec.datos1.flow.graphics.Method;
 import org.tec.datos1.flow.graphics.Process;
 import org.tec.datos1.flow.graphics.While;
+import org.tec.datos1.flow.storage.ASTStorage;
 
 
 public class DiagramView {
@@ -36,10 +48,13 @@ public class DiagramView {
 		canvas.addPaintListener(new PaintListener() {
 			@Override
 			public void paintControl(PaintEvent e) {
-				//Codigo que indica que se va a dibujar
+				//System.out.println(((MethodDeclaration)ASTStorage.getRoot().getElement()).getName());
+				//Method m = new Method(e.gc,"HOLA",200,200);
 			}
 		});
 	}
+
+
 	
 	public void draw() { // Recibe la clase que se va a dibujar
 		//Guarda la clase que se va a dibujar

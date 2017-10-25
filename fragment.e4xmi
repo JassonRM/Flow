@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="ASCII"?>
 <fragment:ModelFragments xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:basic="http://www.eclipse.org/ui/2010/UIModel/application/descriptor/basic" xmlns:commands="http://www.eclipse.org/ui/2010/UIModel/application/commands" xmlns:fragment="http://www.eclipse.org/ui/2010/UIModel/fragment" xmlns:menu="http://www.eclipse.org/ui/2010/UIModel/application/ui/menu" xmi:id="_BxaXACerEeWxCPrV0pAZQQ">
   <fragments xsi:type="fragment:StringModelFragment" xmi:id="_EI7oACerEeWxCPrV0pAZQQ" featurename="descriptors" parentElementId="xpath:/">
-    <elements xsi:type="basic:PartDescriptor" xmi:id="_KMklcCerEeWxCPrV0pAZQQ" elementId="org.tec.datos1.flow.mainview" label="FlowChart" iconURI="platform:/plugin/org.tec.datos1.flow/icons/002-flow-1.png" tooltip="" category="Flow" contributionURI="bundleclass://org.tec.datos1.flow/org.tec.datos1.flow.parts.DiagramView">
+    <elements xsi:type="basic:PartDescriptor" xmi:id="_KMklcCerEeWxCPrV0pAZQQ" elementId="org.tec.datos1.flow.mainview" label="FlowChart" iconURI="platform:/plugin/org.tec.datos1.flow/icons/003-flow-1.png" tooltip="" category="Flow" contributionURI="bundleclass://org.tec.datos1.flow/org.tec.datos1.flow.parts.DiagramView">
       <tags>View</tags>
       <tags>categoryTag:Sample Category</tags>
     </elements>
-    <elements xsi:type="basic:PartDescriptor" xmi:id="_jUrowLSLEee5R71WDPj1cA" elementId="org.tec.datos1.explorer" label="Method Explorer" iconURI="platform:/plugin/org.tec.datos1.flow/icons/005-browser.png" category="Flow" contributionURI="bundleclass://org.tec.datos1.flow/org.tec.datos1.flow.parts.ExplorerView"/>
+    <elements xsi:type="basic:PartDescriptor" xmi:id="_jUrowLSLEee5R71WDPj1cA" elementId="org.tec.datos1.explorer" label="Method Explorer" iconURI="platform:/plugin/org.tec.datos1.flow/icons/006-browser.png" category="Flow" contributionURI="bundleclass://org.tec.datos1.flow/org.tec.datos1.flow.parts.ExplorerView"/>
   </fragments>
   <fragments xsi:type="fragment:StringModelFragment" xmi:id="_g64RQK_UEeeYCvxE0peUaw" featurename="handlers" parentElementId="xpath:/">
     <elements xsi:type="commands:Handler" xmi:id="_xotggK_UEeeYCvxE0peUaw" elementId="org.tec.datos1.flow.handler.stepin" contributionURI="bundleclass://org.tec.datos1.flow/org.tec.datos1.flow.handlers.StepInHandler" command="_K1w-0K_VEeeYCvxE0peUaw"/>
@@ -16,10 +16,10 @@
     <elements xsi:type="commands:Command" xmi:id="_bALX8K_VEeeYCvxE0peUaw" elementId="org.tec.datos1.flow.command.stepover" commandName="Step Over"/>
   </fragments>
   <fragments xsi:type="fragment:StringModelFragment" xmi:id="_c2QHoLFoEeefrPZk3-rHaA" featurename="trimContributions" parentElementId="xpath:/">
-    <elements xsi:type="menu:TrimContribution" xmi:id="_iTHY8LFoEeefrPZk3-rHaA" elementId="org.tec.datos1.flow.trimcontribution.0" parentId="org.eclipse.ui.main.toolbar" positionInParent="">
+    <elements xsi:type="menu:TrimContribution" xmi:id="_iTHY8LFoEeefrPZk3-rHaA" elementId="org.tec.datos1.flow.trimcontribution.0" parentId="org.eclipse.ui.main.toolbar" positionInParent="after=additions">
       <children xsi:type="menu:ToolBar" xmi:id="_9BC0ILFoEeefrPZk3-rHaA" elementId="org.tec.datos1.flow.toolbar">
-        <children xsi:type="menu:HandledToolItem" xmi:id="__af-0LFoEeefrPZk3-rHaA" elementId="org.tec.datos1.flow.handledtoolitem.stepin" label="Step In" iconURI="platform:/plugin/org.tec.datos1.flow/icons/008-login-square-arrow-button-outline.png" command="_K1w-0K_VEeeYCvxE0peUaw"/>
-        <children xsi:type="menu:HandledToolItem" xmi:id="_Ff_WYLFpEeefrPZk3-rHaA" elementId="org.tec.datos1.flow.handledtoolitem.stepover" label="Step Over" iconURI="platform:/plugin/org.tec.datos1.flow/icons/006-arrow-into-drive-symbol.png" command="_bALX8K_VEeeYCvxE0peUaw"/>
+        <children xsi:type="menu:HandledToolItem" xmi:id="__af-0LFoEeefrPZk3-rHaA" elementId="org.tec.datos1.flow.handledtoolitem.stepin" label="Step In" iconURI="platform:/plugin/org.tec.datos1.flow/icons/icons8-step_into.png" command="_K1w-0K_VEeeYCvxE0peUaw"/>
+        <children xsi:type="menu:HandledToolItem" xmi:id="_Ff_WYLFpEeefrPZk3-rHaA" elementId="org.tec.datos1.flow.handledtoolitem.stepover" label="Step Over" iconURI="platform:/plugin/org.tec.datos1.flow/icons/icons8-step_over.png" command="_bALX8K_VEeeYCvxE0peUaw"/>
       </children>
     </elements>
   </fragments>

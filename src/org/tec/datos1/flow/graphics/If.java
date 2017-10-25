@@ -7,41 +7,36 @@ import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Display;
 
-public class If {
+public class If implements Widget{
 	String text;
 	Point input;
 	Point outputTrue;
 	Point outputFalse;
 	GC gc;
 	Rectangle focus;
+	int[] shape;
 	
 	/**
-	 * Constructor para el gráfico de un condicional
-	 * @param gc Graphical Context en el cual se dibuja
+	 * Constructor para el grï¿½fico de un condicional\
 	 * @param text Texto que va a contener el condicional
 	 * @param input Punto de entrada del condicional
 	 */
-	public If(GC gc, String text, Point input) {
+	public If(String text, Point input) {
 		this.input = input;
 		this.outputTrue = new Point(input.x - 30 - gc.stringExtent(text).x / 2, input.y + gc.stringExtent(text).y / 2 + 20);
 		this.outputFalse = new Point(input.x + 30 + gc.stringExtent(text).x / 2, input.y + gc.stringExtent(text).y / 2 + 20);
 		this.text = text;
-		this.gc = gc;
 		
-		int[] diamond = new int[] {input.x, input.y, outputFalse.x, outputFalse.y, input.x, input.y + gc.stringExtent(text).y + 40, outputTrue.x, outputTrue.y};
-		
-		gc.drawPolygon(diamond);
-		gc.drawText(text, input.x - gc.stringExtent(text).x / 2, input.y + 20);
+		shape = new int[] {input.x, input.y, outputFalse.x, outputFalse.y, input.x, input.y + gc.stringExtent(text).y + 40, outputTrue.x, outputTrue.y};
 	}
 	/**
-	 * Constructor para el gráfico de un proceso
-	 * @param gc Graphical Context en el cual se dibuja
+	 * Constructor para el grafico de un proceso
 	 * @param text Texto que va a contener el proceso
 	 * @param x Coordenada en x del punto de entrada del condicional
 	 * @param y Coordenada en y del punto de entrada del condicional
 	 */
-	public If(GC gc, String text, int x, int y) {
-		this(gc, text, new Point(x, y));
+	public If(String text, int x, int y) {
+		this(text, new Point(x, y));
 	}
 	
 	/**
@@ -52,14 +47,14 @@ public class If {
 	}
 	
 	/**
-	 * @return Punto de salida en caso de que se cumpla la condición
+	 * @return Punto de salida en caso de que se cumpla la condicion
 	 */
 	public Point getOutputTrue() {
 		return outputTrue;
 	}
 	
 	/**
-	 * @return Punto de salida en caso de que no se cumpla la condición
+	 * @return Punto de salida en caso de que no se cumpla la condicion
 	 */
 	public Point getOutputFalse() {
 		return outputFalse;
@@ -80,5 +75,10 @@ public class If {
 	
 	public void end() {
 		this.focus = null;
+	}
+	@Override
+	public void draw(GC gc) {
+		gc.drawPolygon(shape);
+		gc.drawText(text, input.x - gc.stringExtent(text).x / 2, input.y + 20);
 	}
 }

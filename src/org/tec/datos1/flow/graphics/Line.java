@@ -7,10 +7,12 @@ public class Line {
 	Point start;
 	Point finish;
 	
-	public Line(GC gc, Point start, Point finish) {
+	public Line(Point start, Point finish) {
 		this.start = start;
 		this.finish = finish;
-		
+	}
+	
+	public void draw(GC gc) {
 		//Falta implementar la flecha de salida de un while
 		if(finish.y < start.y) {
 			gc.drawLine(start.x, start.y, start.x, start.y + 10);

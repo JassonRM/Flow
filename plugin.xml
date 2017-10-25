@@ -12,62 +12,6 @@
    </extension>
    
    <extension
-         point="org.eclipse.ui.commands">
-      <category
-            name="RunFlowChart"
-            id="org.tec.datos1.flow.commands.Run">
-      </category>
-      <command
-            name="Run Flow Chart"
-            categoryId="org.tec.datos1.flow.commands.Run"
-            id="org.tec.datos1.flow.commands.RunCommand">
-      </command>
-   </extension>
-   <extension
-         point="org.eclipse.ui.handlers">
-      <handler
-            commandId="org.tec.datos1.flow.commands.RunCommand"
-            class="org.tec.datos1.flow.handlers.Handler">
-      </handler>
-   </extension>
-   <extension
-         point="org.eclipse.ui.bindings">
-      <key
-            commandId="org.tec.datos1.flow.commands.RunCommand"
-            contextId="org.eclipse.ui.contexts.window"
-            sequence="M1+6"
-            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration">
-      </key>
-   </extension>
-   <extension
-         point="org.eclipse.ui.menus">
-      <menuContribution
-            locationURI="menu:org.eclipse.ui.main.menu?after=additions">
-         <menu
-               label="FlowChart"
-               mnemonic="M"
-               id="org.tec.datos1.flow.menus.FlowChart">
-            <command
-                  commandId="org.tec.datos1.flow.commands.RunCommand"
-                  mnemonic="S"
-                  id="org.tec.datos1.flow.menus.RunCommand">
-            </command>
-         </menu>
-      </menuContribution>
-      <menuContribution
-            locationURI="toolbar:org.eclipse.ui.main.toolbar?after=additions">
-         <toolbar
-               id="org.tec.datos1.flow.toolbars.sampleToolbar">
-            <command
-                  commandId="org.tec.datos1.flow.commands.RunCommand"
-                  icon="icons/001-diagrams.png"
-                  tooltip="Flow Chart"
-                  id="org.tec.datos1.flow.toolbar.RunCommand">
-            </command>
-         </toolbar>
-      </menuContribution>
-   </extension>
-   <extension
        	point="org.eclipse.jdt.debug.breakpointListeners">
    		<breakpointActionDelegate
           	class="org.tec.datos1.flow.debug.DebugListener.java"

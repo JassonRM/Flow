@@ -4,8 +4,8 @@ package org.tec.datos1.flow.storage;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.eclipse.jdt.core.dom.ASTNode;
+import org.eclipse.jdt.core.dom.Block;
 import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.eclipse.jdt.core.dom.DoStatement;
 import org.eclipse.jdt.core.dom.EnhancedForStatement;
@@ -19,20 +19,12 @@ import org.eclipse.jdt.core.dom.VariableDeclarationStatement;
 import org.eclipse.jdt.core.dom.WhileStatement;
 
 public class ASTStorage {
-	static ASTStorage root;
-	String Name;
-	ASTNode Element;
-	List<ASTStorage> Children;
-	public Boolean then;
-	static CompilationUnit compilationUnit;
-	
-	
-	public ASTStorage(ASTNode Element,ASTStorage Parent,String Name) {
-		this.Element = Element;
-		this.Children = new ArrayList<ASTStorage>();
-		//this.Parent = Parent;
-		this.Name = Name;
-	}
+	private static ASTStorage root;
+	private String Name;
+	private ASTNode Element;
+	private List<ASTStorage> Children;
+	private  Boolean then;
+	private static CompilationUnit compilationUnit;
 	
 	public ASTStorage(ASTNode Element,String Name) {
 		this.Element = Element;
@@ -40,8 +32,8 @@ public class ASTStorage {
 		this.Name = Name;
 	}
 	
-	public ASTStorage(ASTNode Element,ASTStorage Parent,Boolean then,String Name) {
-		this(Element,Parent,Name);
+	public ASTStorage(ASTNode Element,Boolean then,String Name) {
+		this(Element,Name);
 		this.then = then;
 	}
 	
@@ -53,27 +45,18 @@ public class ASTStorage {
 		root = Root;
 	}
 	
-	public void addChild(ASTStorage Child) {
-		Children.add(Child);
-	}
-	
-//	public void setParent(ASTStorage parent) {
-//		this.Parent = parent;
-//	}
-//	
-//	public ASTStorage getParent() {
-//		return this.Parent;
-//	}
-
 	public ASTNode getElement() {
 		return this.Element;
 	}
+	
 	public List<ASTStorage> getChildren(){
 		return Children;
 	}
+	
 	public void setThen() {
 		this.then = true;
 	}
+	
 	public String getName() {
 		return this.Name;
 	}
@@ -82,23 +65,157 @@ public class ASTStorage {
 		compilationUnit = compUnit;
 	}
 	
-//	public ASTStorage findLine(Integer lineNumber) {
-//		
-//		if (Element != null && (compilationUnit.getLineNumber(Element.getStartPosition()) == lineNumber)) {
-//			return this;
-//		}else if (Children.size() != 0) {
-//			for (ASTStorage child : Children) {
-//				ASTStorage tempNode = child.findLine(lineNumber);
-//				if ( tempNode != null)
-//					return tempNode;
-//			
-//			}
-//		}else{
-//			return null;
-//		}
-//		return null;
-//
-//	}
+	public static List<String> getMethods() {
+		List<String> result = new ArrayList<>();
+		if (root == null) {
+			return null;
+		}
+		for (ASTStorage method :root.getChildren()) {
+			result.add(method.getName());
+		}
+		return result;
+	}
+	
+	public static ASTStorage getMethod(String Method) {
+		for (ASTStorage method :root.getChildren()) {
+			if (method.getName() == Method) return method;
+		}
+		return null;
+	}
+	
+	public void addChild(ASTStorage Child) {
+		Children.add(Child);
+	}
+	
+	public ASTStorage findLine(Integer lineNumber) {
+		
+		if (Element != null && (compilationUnit.getLineNumber(Element.getStartPosition()) == lineNumber)) {
+			return this;
+		}else if (Children.size() != 0) {
+			for (ASTStorage child : Children) {
+				ASTStorage tempNode = child.findLine(lineNumber);
+				if ( tempNode != null)
+					return tempNode;
+			}
+		}
+		return null;
+	}
+	
+	
+    /**
+     * Este metodo se encarga de descomponer el AST de eclipse en una estructura 
+     * más simple 
+     * @param parent Nodo padre al que se le agregaran los componentes hijos
+     * @param Statements Lista de nodos hijos por agregar 
+     */
+    public void addChildren(List<Block> Statements) {
+    	
+    	for (Object statement : Statements) {
+			ASTNode child = (ASTNode) statement;
+			this.addChildrenAux(child);
+    	}
+    }
+    
+    
+    /**
+     * Este metodo auxiliar asiste al metodo addChildren para complir su función
+     * @param parent Nodo padre al que se le agregaran los componentes hijos
+     * @param Statements Nodo hijo por agregar 
+     */
+	@SuppressWarnings("unchecked")
+	public void addChildrenAux(ASTNode child) {
+		String[] clazz_aux = child.getClass().toString().split("\\.");
+		String clazz = clazz_aux[clazz_aux.length - 1];
+
+		if (clazz.equalsIgnoreCase("WhileStatement")) {
+			
+			WhileStatement While = (WhileStatement) child;
+			ASTStorage WhileStorage = new ASTStorage(While,While.getExpression().toString());
+			this.addChild(WhileStorage);
+			
+			Block block = (Block) While.getBody();
+
+			WhileStorage.addChildren(block.statements());
+
+		} else if (clazz.equalsIgnoreCase("DoStatement")) {
+			DoStatement Do = (DoStatement) child;
+			ASTStorage DoStorage = new ASTStorage(Do, Do.getExpression().toString());
+			this.addChild(DoStorage);
+			//System.out.println("Do: \n" + Do.getExpression());
+			Block block = (Block) Do.getBody();
+
+			DoStorage.addChildren(block.statements());
+
+		} else if (clazz.equalsIgnoreCase("EnhancedForStatement")) {
+			EnhancedForStatement EnhancedFor = (EnhancedForStatement) child;
+			ASTStorage EnhancedForStorage = new ASTStorage(EnhancedFor,EnhancedFor.getExpression().toString());
+			this.addChild(EnhancedForStorage);
+			Block block = (Block) EnhancedFor.getBody();
+
+			EnhancedForStorage.addChildren(block.statements());
+
+		} else if (clazz.equalsIgnoreCase("ForStatement")) {
+			ForStatement For = (ForStatement) child;
+			ASTStorage ForStorage = new ASTStorage(For,For.getExpression().toString());
+			this.addChild(ForStorage);
+			Block block = (Block) For.getBody();
+
+			ForStorage.addChildren(block.statements());
+
+		} else if (clazz.equalsIgnoreCase("IfStatement")) {
+			IfStatement If = (IfStatement) child;
+			ASTStorage IfStorage = new ASTStorage(If,If.getExpression().toString());
+			this.addChild(IfStorage);
+			ASTStorage thenStorage = new ASTStorage(null,true,If.getExpression().toString());
+			IfStorage.addChild(thenStorage);
+			Block b1 = (Block) If.getThenStatement();
+			thenStorage.addChildren(b1.statements());
+
+			if (If.getElseStatement() instanceof Block) {
+				ASTStorage elseStorage = new ASTStorage(null,false,If.getExpression().toString());
+				IfStorage.addChild(elseStorage);
+				Block b2 = (Block) If.getElseStatement();
+				elseStorage.addChildren(b2.statements());
+			} else {
+				ASTStorage elseStorage = new ASTStorage(null,false, If.getExpression().toString());
+				IfStorage.addChild(elseStorage);
+				IfStatement If2 = (IfStatement) If.getElseStatement();
+				elseStorage.addChildrenAux(If2);
+			}
+
+		} else if(clazz.equalsIgnoreCase("TryStatement")){
+			TryStatement Try = (TryStatement) child;
+			ASTStorage TryStorage = new ASTStorage(Try,"Try");
+			this.addChild(TryStorage);
+			
+			Block block = (Block) Try.getBody();
+
+			TryStorage.addChildren(block.statements());
+
+		} else if (clazz.equalsIgnoreCase("ExpressionStatement")) {
+			
+			ExpressionStatement Expression = (ExpressionStatement) child;
+			try{
+				
+				MethodInvocation methodInvocation = (MethodInvocation) Expression.getExpression();
+				ASTStorage MethoInvocationStorage = new ASTStorage(methodInvocation, methodInvocation.toString());
+				this.addChild(MethoInvocationStorage);
+				
+			}catch(Exception ex) {
+				ASTStorage ExpressionStorage = new ASTStorage(Expression,Expression.toString());
+				this.addChild(ExpressionStorage);
+			}
+			
+		}else if (clazz.equalsIgnoreCase("VariableDeclarationStatement")) {
+			VariableDeclarationStatement Variable = (VariableDeclarationStatement) child;
+			ASTStorage VariableStorage = new ASTStorage(Variable,Variable.toString());
+			this.addChild(VariableStorage);
+		}else {
+			System.out.println("OTRO: " + clazz);
+		}
+
+    }
+	
 	/**
 	 * Este método se encarga de mostrar todo lo que se encuentra dentro del arbol
 	 */

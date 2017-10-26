@@ -23,7 +23,14 @@ public class DebugListener implements IJavaBreakpointListener{
 	
 	@Override
 	public void breakpointHasRuntimeException(IJavaLineBreakpoint arg0, DebugException arg1) {}
-
+	
+	/**
+	 * Este método se ejecuta cuando al depurar un programa, 
+	 * choca con un breakPoint y se encarga de mantener una referencia al hilo
+	 * @param  thread Hilo que se encarga de mantener el proceso de depurado
+	 * @param breakpoint BreakPoint contra el cual choca el depurador 
+	 * @see org.eclipse.jdt.debug.core.IJavaBreakpointListener#breakpointHit(org.eclipse.jdt.debug.core.IJavaThread, org.eclipse.jdt.debug.core.IJavaBreakpoint)
+	 */
 	@Override
 	public int breakpointHit(IJavaThread thread, IJavaBreakpoint breakpoint) {
 		
@@ -32,11 +39,9 @@ public class DebugListener implements IJavaBreakpointListener{
 		
 		ILineBreakpoint lineBreak = (ILineBreakpoint)breakpoint;
 		int numLinea = 0; 
-		try {
+				try {
 			numLinea = lineBreak.getLineNumber();
-			//ASTStorage storage = ASTStorage.getRoot().findLine(numLinea);
-			//storage.print();
-			//storage.print();
+			
 		}catch(CoreException e) {}
 		
 		System.out.println("Breakpoint:" + numLinea);

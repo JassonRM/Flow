@@ -39,6 +39,10 @@ public class DiagramView {
 	LinkedList<Widget> diagram; // Almacena todos los dibujos que se van a hacer
 	//Variable con clase que se va a dibujar
 	
+	/**
+	 * Crea la vista para el plugin
+	 * @param parent Componente de la interfaz en el cual se va a generar los graficos
+	 */
 	@Inject
 	public DiagramView(Composite parent) {
 		//Aqui debe llamar a la funcion de AST y pasarle la referencia a esta instancia
@@ -101,9 +105,10 @@ public class DiagramView {
 	}
 
 
-	
-	public void draw() { // Recibe la clase que se va a dibujar
-		//Guarda la clase que se va a dibujar
+	/**
+	 * Actualiza el diagrama y la pantalla
+	 */
+	public void draw() {
 		canvas.redraw();
 	}
 }

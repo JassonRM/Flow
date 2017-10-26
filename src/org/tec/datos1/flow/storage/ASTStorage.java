@@ -24,7 +24,7 @@ public class ASTStorage {
 	String Name;
 	ASTNode Element;
 	List<ASTStorage> Children;
-	Boolean then;
+	public Boolean then;
 	//ASTStorage Parent;
 	static CompilationUnit compilationUnit;
 	

@@ -86,7 +86,12 @@ public class ASTStorage {
 	public void addChild(ASTStorage Child) {
 		Children.add(Child);
 	}
-	
+	/**parseado
+	 * Este método busca el ASTStorage correspondiente a una linea 
+	 * específica dentro del código 
+	 * @param lineNumber
+	 * @return
+	 */
 	public ASTStorage findLine(Integer lineNumber) {
 		
 		if (Element != null && (compilationUnit.getLineNumber(Element.getStartPosition()) == lineNumber)) {

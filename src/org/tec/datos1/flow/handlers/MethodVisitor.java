@@ -10,7 +10,10 @@ import org.tec.datos1.flow.storage.ASTStorage;
 public class MethodVisitor extends ASTVisitor {
     ASTStorage Root = new ASTStorage(null, "Root");
     
-
+    /**
+     * Este método se ejecuta cuando se encuentra una declaración de
+     * método durante el parseo del código
+     */
     @SuppressWarnings("unchecked")
 	@Override
     public boolean visit(MethodDeclaration methodNode) {

@@ -17,7 +17,11 @@ import org.tec.datos1.flow.storage.ASTStorage;
 
 public class CodeParser {
 	
-	
+	/**
+	 * Este método se encarga de parsear el código de la 
+	 * clase abierta en el instante que se llama el método
+	 * @throws ExecutionException
+	 */
     public static void execute() throws ExecutionException {
     	
     	IWorkbenchPart workbenchPart = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActivePart();

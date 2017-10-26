@@ -2,7 +2,6 @@ package org.tec.datos1.flow.debug;
 
 import org.eclipse.debug.core.DebugException;
 import org.eclipse.debug.core.model.IStackFrame;
-
 import org.eclipse.jdt.debug.core.IJavaThread;
 
 public class DebugStepper {

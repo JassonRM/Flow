@@ -21,6 +21,7 @@ public class Activator implements BundleActivator {
 		JDIDebugModel.addJavaBreakpointListener(new DebugListener());
 		Activator.context = bundleContext;
 		
+		
 	}
 
 	/*

@@ -4,6 +4,11 @@ package org.tec.datos1.flow.storage;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
+import javax.script.ScriptException;
+
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.Block;
 import org.eclipse.jdt.core.dom.CompilationUnit;
@@ -87,7 +92,7 @@ public class ASTStorage {
 	
 	public static ASTStorage getMethod(String Method) {
 		for (ASTStorage method :root.getChildren()) {
-			if (method.getName() == Method) return method;
+			if (method.getName().equals(Method)) return method;
 		}
 		return null;
 	}
@@ -130,6 +135,10 @@ public class ASTStorage {
     	}
     }
     
+    public void deleteChildren() {
+    	this.Children.clear();
+    	ASTStorage.root = null;
+    }
     
     /**
      * Este metodo auxiliar asiste al metodo addChildren para complir su función
@@ -232,8 +241,9 @@ public class ASTStorage {
 	
 	/**
 	 * Este método se encarga de mostrar todo lo que se encuentra dentro del arbol
+	 * @throws ScriptException 
 	 */
-	public void print() {
+	public void print() throws ScriptException {
 		if (Element == null) {
 			if (this.then) {
 				
@@ -284,7 +294,7 @@ public class ASTStorage {
 			} else if (clazz.equalsIgnoreCase("ExpressionStatement")) {
 
 				ExpressionStatement Expression = (ExpressionStatement) Element;
-
+				
 				System.out.println(Expression.getExpression());
 
 			} else if (clazz.equalsIgnoreCase("VariableDeclarationStatement")) {

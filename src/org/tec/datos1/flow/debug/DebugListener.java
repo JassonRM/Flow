@@ -48,12 +48,7 @@ public class DebugListener implements IJavaBreakpointListener{
 		
 		System.out.println("Breakpoint:" + numLinea);
 		
-		try {
-			CodeParser.execute();
-		} catch (ExecutionException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+
 		return 0;
 	}
 

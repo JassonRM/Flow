@@ -1,17 +1,19 @@
 package org.tec.datos1.flow.debug;
 
-import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.debug.core.DebugException;
 import org.eclipse.debug.core.model.IStackFrame;
+import org.eclipse.jdt.core.ICompilationUnit;
+import org.eclipse.jdt.core.dom.ASTParser;
 import org.eclipse.jdt.core.dom.MethodInvocation;
 import org.eclipse.jdt.debug.core.IJavaThread;
 import org.tec.datos1.flow.CodeParser;
+import org.tec.datos1.flow.handlers.Methods;
 import org.tec.datos1.flow.storage.ASTStorage;
 
 public class DebugStepper {
 	
 	private static  IJavaThread debugThread;
-	
+	static boolean b = true;
 
 	public static IJavaThread getDebugThread() {
 		return debugThread;
@@ -29,7 +31,10 @@ public class DebugStepper {
 			
 			ASTStorage step = ASTStorage.getRoot().findLine(update());
 			if (step.getElement() instanceof MethodInvocation) {
-				System.out.println("Method Invocation: " + ((MethodInvocation)step.getElement()));
+				MethodInvocation mI = (MethodInvocation)step.getElement();
+				ICompilationUnit unit = Methods.findClass(mI.resolveMethodBinding().getDeclaringClass().getQualifiedName());
+				CodeParser.executeSpecific(unit);
+				ASTStorage.getMethod(mI.getName().toString()).print();
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -43,6 +48,12 @@ public class DebugStepper {
 	public static void stepOver() {
 		try {
  			debugThread.stepOver();
+ 			if (b) {
+ 				CodeParser.execute();
+ 				b = false;
+ 			}
+ 			
+ 			Methods.load();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

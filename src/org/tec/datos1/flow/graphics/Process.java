@@ -14,7 +14,7 @@ public class Process implements Widget{
 	Point output;
 	
 	/**
-	 * Constructor para el gr�fico de un proceso
+	 * Constructor para el grafico de un proceso
 	 * @param text Texto que va a contener el proceso
 	 * @param input Punto de entrada del proceso
 	 */
@@ -24,7 +24,7 @@ public class Process implements Widget{
 		this.text = text;
 	}
 	/**
-	 * Constructor para el gr�fico de un proceso
+	 * Constructor para el grafico de un proceso
 	 * @param gc Graphical Context en el cual se dibuja
 	 * @param text Texto que va a contener el proceso
 	 * @param x Coordenada en x del punto de entrada del proceso
@@ -60,6 +60,11 @@ public class Process implements Widget{
 //		Color black = display.getSystemColor(SWT.COLOR_BLACK);
 //		gc.setForeground(black);
 //	}
+	
+	/**
+	 * Dibuja el grafico en el contexto grafico
+	 * @param gc Contexto grafico en el cual se va a dibujar
+	 */
 	@Override
 	public void draw(GC gc) {
 		Rectangle rectangle = new Rectangle(input.x - 10 - gc.stringExtent(text).x / 2, input.y, gc.stringExtent(text).x + 20, 40);

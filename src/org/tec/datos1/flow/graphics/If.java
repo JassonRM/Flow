@@ -61,21 +61,26 @@ public class If implements Widget{
 	}
 	
 	//Todavia no funcionan bien
-	public void execute() {
-		Display display = Display.getCurrent();
-		Color red = display.getSystemColor(SWT.COLOR_RED);
-		gc.setForeground(red);
-		gc.setLineWidth(3);
-		this.focus = new Rectangle(input.x - 20 - gc.stringExtent(text).x / 2, input.y, gc.stringExtent(text).x + 40, 40);
-		gc.drawRectangle(focus);
-		Color black = display.getSystemColor(SWT.COLOR_BLACK);
-		gc.setForeground(black);
-		gc.setLineWidth(1);
-	}
+//	public void execute() {
+//		Display display = Display.getCurrent();
+//		Color red = display.getSystemColor(SWT.COLOR_RED);
+//		gc.setForeground(red);
+//		gc.setLineWidth(3);
+//		this.focus = new Rectangle(input.x - 20 - gc.stringExtent(text).x / 2, input.y, gc.stringExtent(text).x + 40, 40);
+//		gc.drawRectangle(focus);
+//		Color black = display.getSystemColor(SWT.COLOR_BLACK);
+//		gc.setForeground(black);
+//		gc.setLineWidth(1);
+//	}
+//	
+//	public void end() {
+//		this.focus = null;
+//	}
 	
-	public void end() {
-		this.focus = null;
-	}
+	/**
+	 * Dibuja el grafico en el contexto grafico
+	 * @param gc Contexto grafico en el que se va a dibujar
+	 */
 	@Override
 	public void draw(GC gc) {
 		gc.drawPolygon(shape);

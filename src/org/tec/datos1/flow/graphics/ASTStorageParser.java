@@ -20,6 +20,11 @@ public class ASTStorageParser {
 	LinkedList<Widget> scene;
 	Point lastOutput;
 	
+	/**
+	 * Convierte un arbol ASTStorage a LinkedList
+	 * @param storage Arbol AST que se va a convertir
+	 * @return LinkedLIst<Widget> con los widgets a dibujar
+	 */
 	public LinkedList<Widget> parse(ASTStorage storage){
 		scene = new LinkedList<Widget>();
 		
@@ -31,6 +36,12 @@ public class ASTStorageParser {
 		return scene;
 	}
 	
+	/**
+	 * Anade los elementos en orden a la lista de acuerdo al arbol ASTStorage
+	 * @param storage Arbol a analizar
+	 * @param x Posicion en X
+	 * @param y Posicion en Y
+	 */
 	public void draw(ASTStorage storage, int x, int y) {
 		ASTNode element = storage.getElement();
 		System.out.println(element);

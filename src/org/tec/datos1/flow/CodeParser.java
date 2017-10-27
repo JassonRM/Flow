@@ -39,6 +39,11 @@ public class CodeParser {
     	
     }
 
+    /**
+     * Crea el arbol AST
+     * @param IcUnit Clase que se va a analizar
+     * @throws JavaModelException
+     */
     private static void createAST(ICompilationUnit IcUnit) throws JavaModelException {
     		
             CompilationUnit parse = parse(IcUnit);

@@ -17,7 +17,7 @@ public class While implements Widget{
 	int[] shape;
 	
 	/**
-	 * Constructor para el gr�fico de un condicional
+	 * Constructor para el grafico de un condicional
 	 * @param text Texto que va a contener el condicional
 	 * @param input Punto de entrada del condicional
 	 */
@@ -32,7 +32,7 @@ public class While implements Widget{
 		shape = new int[] {input.x, input.y, outputFalse.x, outputFalse.y, outputTrue.x, outputTrue.y, inputReturn.x, inputReturn.y};
 	}
 	/**
-	 * Constructor para el gr�fico de un proceso
+	 * Constructor para el grafico de un proceso
 	 * @param gc Graphical Context en el cual se dibuja
 	 * @param text Texto que va a contener el proceso
 	 * @param x Coordenada en x del punto de entrada del condicional
@@ -86,6 +86,11 @@ public class While implements Widget{
 //	public void end() {
 //		this.focus = null;
 //	}
+	
+	/**
+	 * Dibuja el grafico en el contexto grafico
+	 * param gc Contexto grafico en el que se va a dibujar
+	 */
 	@Override
 	public void draw(GC gc) {
 		this.outputTrue = new Point(input.x, input.y + gc.stringExtent(text).y + 40);

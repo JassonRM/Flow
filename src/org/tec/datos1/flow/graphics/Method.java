@@ -14,9 +14,9 @@ public class Method implements Widget{
 	Rectangle focus;
 	
 	/**
-	 * Constructor para el gr�fico de un m�todo
-	 * @param text Texto que va a contener el m�todo
-	 * @param input Punto de entrada del m�todo
+	 * Constructor para el grafico de un metodo
+	 * @param text Texto que va a contener el metodo
+	 * @param input Punto de entrada del metodo
 	 */
 	public Method(String text, Point input) {
 		this.input = input;
@@ -24,11 +24,11 @@ public class Method implements Widget{
 		this.text = text;
 	}
 	/**
-	 * Constructor para el gr�fico de un m�todo
+	 * Constructor para el grafico de un metodo
 	 * @param gc Graphical Context en el cual se dibuja
-	 * @param text Texto que va a contener el m�todo
-	 * @param x Coordenada en x del punto de entrada del m�todo
-	 * @param y Coordenada en y del punto de entrada del m�todo
+	 * @param text Texto que va a contener el metodo
+	 * @param x Coordenada en x del punto de entrada del metodo
+	 * @param y Coordenada en y del punto de entrada del metodo
 	 */
 	public Method(String text, int x, int y) {
 		this(text, new Point(x, y));
@@ -60,10 +60,15 @@ public class Method implements Widget{
 //		gc.setForeground(black);
 //		gc.setLineWidth(1);
 //	}
-	
-	public void end() {
-		this.focus = null;
-	}
+//	
+//	public void end() {
+//		this.focus = null;
+//	}
+
+	/**
+	 * Dibuja el metodo en el contexto grafico
+	 * @param gc Contexto grafico en el que se va a dibujar
+	 */
 	@Override
 	public void draw(GC gc) {
 		Rectangle rectangle = new Rectangle(input.x - 10 - gc.stringExtent(text).x / 2, input.y, gc.stringExtent(text).x + 20, 40);

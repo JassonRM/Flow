@@ -1,6 +1,7 @@
 package org.tec.datos1.flow.debug;
 
 
+import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.debug.core.DebugException;
 import org.eclipse.debug.core.model.ILineBreakpoint;
@@ -11,6 +12,7 @@ import org.eclipse.jdt.debug.core.IJavaDebugTarget;
 import org.eclipse.jdt.debug.core.IJavaLineBreakpoint;
 import org.eclipse.jdt.debug.core.IJavaThread;
 import org.eclipse.jdt.debug.core.IJavaType;
+import org.tec.datos1.flow.CodeParser;
 import org.tec.datos1.flow.storage.ASTStorage;
 
 public class DebugListener implements IJavaBreakpointListener{
@@ -45,6 +47,13 @@ public class DebugListener implements IJavaBreakpointListener{
 		}catch(CoreException e) {}
 		
 		System.out.println("Breakpoint:" + numLinea);
+		
+		try {
+			CodeParser.execute();
+		} catch (ExecutionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return 0;
 	}
 

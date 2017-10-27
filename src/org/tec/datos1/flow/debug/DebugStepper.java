@@ -1,8 +1,12 @@
 package org.tec.datos1.flow.debug;
 
+import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.debug.core.DebugException;
 import org.eclipse.debug.core.model.IStackFrame;
+import org.eclipse.jdt.core.dom.MethodInvocation;
 import org.eclipse.jdt.debug.core.IJavaThread;
+import org.tec.datos1.flow.CodeParser;
+import org.tec.datos1.flow.storage.ASTStorage;
 
 public class DebugStepper {
 	
@@ -22,9 +26,11 @@ public class DebugStepper {
 	 */
 	public static void stepInto() {
 		try {
-			debugThread.stepInto();
-			update();
 			
+			ASTStorage step = ASTStorage.getRoot().findLine(update());
+			if (step.getElement() instanceof MethodInvocation) {
+				System.out.println("Method Invocation: " + ((MethodInvocation)step.getElement()));
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -36,9 +42,8 @@ public class DebugStepper {
 	 */
 	public static void stepOver() {
 		try {
-			debugThread.stepOver();
-			update();
-		} catch (DebugException e) {
+ 			debugThread.stepOver();
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
@@ -47,20 +52,23 @@ public class DebugStepper {
 	 * Este método se encarga de obtener la línea en la que 
 	 * se encuentra el debugger en dicho instante.
 	 */
-	public static void update(){
+	public static int update(){
 		try {
 			IStackFrame Frame = null;
 			
 			while (Frame == null) {
 				Frame = debugThread.getTopStackFrame();
+				
 			}
-			System.out.println(Frame.getLineNumber());
-			System.out.println(Frame.getName());
-			System.out.println(Frame.getModelIdentifier());
+			return Frame.getLineNumber();
+			//System.out.println(Frame.getName());
+			//System.out.println(Frame.getModelIdentifier());
+			
 			
 		} catch (DebugException e) {
 			e.printStackTrace();
 		}
+		return 0;
 	}
 	
 	/**

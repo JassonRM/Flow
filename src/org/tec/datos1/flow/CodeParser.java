@@ -40,7 +40,7 @@ public class CodeParser {
     }
 
     private static void createAST(ICompilationUnit IcUnit) throws JavaModelException {
-    	
+    		
             CompilationUnit parse = parse(IcUnit);
             ASTStorage.setCompUnit(parse);
             MethodVisitor visitor = new MethodVisitor();

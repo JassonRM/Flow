@@ -8,4 +8,5 @@ public interface Widget {
 	 * @param gc Contexto grafico en el que se va a dibujar
 	 */
 	public void draw(GC gc);
+	public void fix(int x);
 }

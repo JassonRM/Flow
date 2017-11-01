@@ -6,13 +6,13 @@ import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Shell;
 
 public class If implements Widget{
 	String text;
 	Point input;
 	Point outputTrue;
 	Point outputFalse;
-	GC gc;
 	Rectangle focus;
 	int[] shape;
 	
@@ -22,12 +22,13 @@ public class If implements Widget{
 	 * @param input Punto de entrada del condicional
 	 */
 	public If(String text, Point input) {
+		Shell shell = new Shell();
+		GC gc = new GC(shell);
+		
 		this.input = input;
 		this.outputTrue = new Point(input.x - 30 - gc.stringExtent(text).x / 2, input.y + gc.stringExtent(text).y / 2 + 20);
 		this.outputFalse = new Point(input.x + 30 + gc.stringExtent(text).x / 2, input.y + gc.stringExtent(text).y / 2 + 20);
 		this.text = text;
-		
-		shape = new int[] {input.x, input.y, outputFalse.x, outputFalse.y, input.x, input.y + gc.stringExtent(text).y + 40, outputTrue.x, outputTrue.y};
 	}
 	/**
 	 * Constructor para el grafico de un proceso
@@ -83,7 +84,19 @@ public class If implements Widget{
 	 */
 	@Override
 	public void draw(GC gc) {
+		shape = new int[] {input.x, input.y, outputFalse.x, outputFalse.y, input.x, input.y + gc.stringExtent(text).y + 40, outputTrue.x, outputTrue.y};
+		
 		gc.drawPolygon(shape);
 		gc.drawText(text, input.x - gc.stringExtent(text).x / 2, input.y + 20);
+	}
+	
+	@Override
+	public void fix(int x) {
+		input = new Point(input.x + x, input.y);
+		outputTrue = new Point(outputTrue.x + x, outputTrue.y);
+		outputFalse = new Point(outputFalse.x + x, outputFalse.y);
+	}
+	public int getWidth() {
+		return outputFalse.x - outputTrue.x;
 	}
 }

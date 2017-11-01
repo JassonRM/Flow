@@ -6,6 +6,7 @@ import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Shell;
 
 public class Method implements Widget{
 	String text;
@@ -77,6 +78,15 @@ public class Method implements Widget{
 		gc.drawRectangle(externalRectangle);
 		gc.drawText(text, input.x - gc.stringExtent(text).x / 2, input.y + (40 - gc.stringExtent(text).y) / 2);
 	}
-	
+	@Override
+	public void fix(int x) {
+		input = new Point(input.x + x, input.y);
+		output = new Point(output.x + x, output.y);
+	}
+	public int getWidth() {
+		Shell shell = new Shell();
+		GC gc = new GC(shell);
+		return gc.stringExtent(text).x + 20;
+	}
 	
 }

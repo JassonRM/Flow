@@ -6,6 +6,7 @@ import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Shell;
 
 public class While implements Widget{
 	String text;
@@ -14,7 +15,6 @@ public class While implements Widget{
 	Point outputFalse;
 	Point inputReturn;
 	Rectangle focus;
-	int[] shape;
 	
 	/**
 	 * Constructor para el grafico de un condicional
@@ -22,14 +22,16 @@ public class While implements Widget{
 	 * @param input Punto de entrada del condicional
 	 */
 	public While(String text, Point input) {
+		Shell shell = new Shell();
+		GC gc = new GC(shell);
+		
+		
 		this.input = input;
-//		this.outputTrue = new Point(input.x, input.y + gc.stringExtent(text).y + 40);
-//		this.outputFalse = new Point(input.x + 30 + gc.stringExtent(text).x / 2, input.y + gc.stringExtent(text).y / 2 + 20);
-//		this.inputReturn = new Point(input.x - 30 - gc.stringExtent(text).x / 2, input.y + gc.stringExtent(text).y / 2 + 20);
+		this.outputTrue = new Point(input.x, input.y + 60);
+		this.outputFalse = new Point(input.x + 30 + gc.stringExtent(text).x / 2, input.y + gc.stringExtent(text).y / 2 + 20);
+		this.inputReturn = new Point(input.x - 30 - gc.stringExtent(text).x / 2, input.y + gc.stringExtent(text).y / 2 + 20);
 		
 		this.text = text;
-		
-		shape = new int[] {input.x, input.y, outputFalse.x, outputFalse.y, outputTrue.x, outputTrue.y, inputReturn.x, inputReturn.y};
 	}
 	/**
 	 * Constructor para el grafico de un proceso
@@ -70,34 +72,26 @@ public class While implements Widget{
 		return outputFalse;
 	}
 	
-	//Todavia no funcionan bien
-//	public void execute() {
-//		Display display = Display.getCurrent();
-//		Color red = display.getSystemColor(SWT.COLOR_RED);
-//		gc.setForeground(red);
-//		gc.setLineWidth(3);
-//		this.focus = new Rectangle(input.x - 20 - gc.stringExtent(text).x / 2, input.y, gc.stringExtent(text).x + 40, 40);
-//		gc.drawRectangle(focus);
-//		Color black = display.getSystemColor(SWT.COLOR_BLACK);
-//		gc.setForeground(black);
-//		gc.setLineWidth(1);
-//	}
-//	
-//	public void end() {
-//		this.focus = null;
-//	}
-	
 	/**
 	 * Dibuja el grafico en el contexto grafico
 	 * param gc Contexto grafico en el que se va a dibujar
 	 */
 	@Override
 	public void draw(GC gc) {
-		this.outputTrue = new Point(input.x, input.y + gc.stringExtent(text).y + 40);
-		this.outputFalse = new Point(input.x + 30 + gc.stringExtent(text).x / 2, input.y + gc.stringExtent(text).y / 2 + 20);
-		this.inputReturn = new Point(input.x - 30 - gc.stringExtent(text).x / 2, input.y + gc.stringExtent(text).y / 2 + 20);
+		
+		int [] shape = new int[] {input.x, input.y, outputFalse.x, outputFalse.y, outputTrue.x, outputTrue.y, inputReturn.x, inputReturn.y};
 		
 		gc.drawPolygon(shape);
 		gc.drawText(text, input.x - gc.stringExtent(text).x / 2, input.y + 20);
+	}
+	@Override
+	public void fix(int x) {
+		input = new Point(input.x + x, input.y);
+		outputTrue = new Point(outputTrue.x + x, outputTrue.y);
+		outputFalse = new Point(outputFalse.x + x, outputFalse.y);
+		inputReturn = new Point(inputReturn.x + x, inputReturn.y);
+	}
+	public int getWidth() {
+		return outputFalse.x - inputReturn.x;
 	}
 }

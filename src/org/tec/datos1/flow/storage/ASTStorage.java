@@ -97,6 +97,10 @@ public class ASTStorage {
 		return null;
 	}
 	
+	public Integer getLineNumber() {
+		return compilationUnit.getLineNumber(Element.getStartPosition());
+	}
+	
 	public void addChild(ASTStorage Child) {
 		Children.add(Child);
 	}
@@ -147,6 +151,7 @@ public class ASTStorage {
      */
 	@SuppressWarnings("unchecked")
 	public void addChildrenAux(ASTNode child) {
+		if (child == null) {return;}
 		String[] clazz_aux = child.getClass().toString().split("\\.");
 		String clazz = clazz_aux[clazz_aux.length - 1];
 

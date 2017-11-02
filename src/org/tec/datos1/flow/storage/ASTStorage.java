@@ -226,6 +226,12 @@ public class ASTStorage {
 			try{
 				
 				MethodInvocation methodInvocation = (MethodInvocation) Expression.getExpression();
+				String methodClass = methodInvocation.resolveMethodBinding().getDeclaringClass().getQualifiedName();
+				if (methodClass.split("\\.")[0].equals("java")) {
+					ASTStorage ExpressionStorage = new ASTStorage(Expression,Expression.toString());
+					this.addChild(ExpressionStorage);
+					return;
+				}
 				ASTStorage MethoInvocationStorage = new ASTStorage(methodInvocation, methodInvocation.toString());
 				this.addChild(MethoInvocationStorage);
 				

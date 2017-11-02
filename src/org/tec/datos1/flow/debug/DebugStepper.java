@@ -13,7 +13,6 @@ import org.tec.datos1.flow.storage.ASTStorage;
 public class DebugStepper {
 	
 	private static  IJavaThread debugThread;
-	static boolean b = true;
 
 	public static IJavaThread getDebugThread() {
 		return debugThread;
@@ -35,6 +34,7 @@ public class DebugStepper {
 				ICompilationUnit unit = Methods.findClass(mI.resolveMethodBinding().getDeclaringClass().getQualifiedName());
 				CodeParser.executeSpecific(unit);
 				ASTStorage.getMethod(mI.getName().toString()).print();
+				
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -47,13 +47,10 @@ public class DebugStepper {
 	 */
 	public static void stepOver() {
 		try {
+			int currentLine = update();
+			ASTStorage storage = ASTStorage.getRoot().findLine(currentLine);
+			System.out.println(storage.getName());
  			debugThread.stepOver();
- 			if (b) {
- 				CodeParser.execute();
- 				b = false;
- 			}
- 			
- 			Methods.load();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

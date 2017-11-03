@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1e0f1b96-b58b-4f7e-81cf-24e40ea0ecef" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tec/datos1/flow/graphics/Line.java" afterPath="$PROJECT_DIR$/src/org/tec/datos1/flow/graphics/Line.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tec/datos1/flow/graphics/ASTStorageParser.java" afterPath="$PROJECT_DIR$/src/org/tec/datos1/flow/graphics/ASTStorageParser.java" />
     </list>
     <ignored path="$PROJECT_DIR$/bin/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -13,176 +14,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="JAVA/org.tec.datos1.flow" pinned="false" current-in-tab="true">
-        <entry file="uml://JAVA/org.tec.datos1.flow">
-          <provider selected="true" editor-type-id="UmlEditorProvider">
-            <state>
-              <ID>JAVA</ID>
-              <OriginalElement>org.tec.datos1.flow</OriginalElement>
-              <nodes>
-                <node x="708.5" y="898.0">org.tec.datos1.flow.graphics.ASTStorageParser</node>
-                <node x="1044.5" y="608.0">org.tec.datos1.flow.graphics.Process</node>
-                <node x="1181.8412698412696" y="210.5">org.tec.datos1.flow.graphics.Widget</node>
-                <node x="766.0" y="1540.0">org.tec.datos1.flow.handlers.StepOverHandler</node>
-                <node x="0.0" y="1474.0">org.tec.datos1.flow.debug.DebugListener</node>
-                <node x="394.5" y="564.0">org.tec.datos1.flow.graphics.While</node>
-                <node x="511.49999999999994" y="1240.0">org.tec.datos1.flow.debug.DebugStepper</node>
-                <node x="810.5" y="586.0">org.tec.datos1.flow.graphics.Method</node>
-                <node x="0.0" y="653.0">org.tec.datos1.flow.handlers.MethodVisitor</node>
-                <node x="1292.5" y="630.5">org.tec.datos1.flow.graphics.Line</node>
-                <node x="66.91090325018877" y="0.0">org.tec.datos1.flow.storage.ASTStorage</node>
-                <node x="38.65655706727114" y="909.5">org.tec.datos1.flow.CodeParser</node>
-                <node x="148.99999999999994" y="1707.0">org.tec.datos1.flow.Activator</node>
-                <node x="742.5" y="1076.0">org.tec.datos1.flow.parts.DiagramView</node>
-                <node x="561.0" y="1540.0">org.tec.datos1.flow.handlers.StepInHandler</node>
-                <node x="615.5" y="542.0">org.tec.datos1.flow.graphics.If</node>
-              </nodes>
-              <notes />
-              <edges>
-                <edge source="org.tec.datos1.flow.debug.DebugListener" target="org.tec.datos1.flow.debug.DebugStepper">
-                  <point x="0.0" y="-91.5" />
-                  <point x="270.5" y="1449.0" />
-                  <point x="558.8333333333333" y="1449.0" />
-                  <point x="-94.66666666666667" y="92.0" />
-                </edge>
-                <edge source="org.tec.datos1.flow.CodeParser" target="org.tec.datos1.flow.handlers.MethodVisitor">
-                  <point x="-105.66666666666674" y="-47.5" />
-                  <point x="91.4898904006044" y="878.0" />
-                  <point x="68.0" y="878.0" />
-                  <point x="-68.0" y="37.0" />
-                </edge>
-                <edge source="org.tec.datos1.flow.handlers.MethodVisitor" target="org.tec.datos1.flow.storage.ASTStorage">
-                  <point x="-90.66666666666674" y="-37.0" />
-                  <point x="45.33333333333326" y="522.0" />
-                  <point x="95.16090325018877" y="522.0" />
-                  <point x="-141.25" y="236.0" />
-                </edge>
-                <edge source="org.tec.datos1.flow.graphics.If" target="org.tec.datos1.flow.graphics.Widget">
-                  <point x="0.0" y="-148.0" />
-                  <point x="703.0" y="502.0" />
-                  <point x="1208.0079365079364" y="502.0" />
-                  <point x="-52.333333333333314" y="25.5" />
-                </edge>
-                <edge source="org.tec.datos1.flow.graphics.ASTStorageParser" target="org.tec.datos1.flow.graphics.Method">
-                  <point x="44.428571428571445" y="-59.0" />
-                  <point x="908.4285714285714" y="858.0" />
-                  <point x="971.0" y="858.0" />
-                  <point x="53.5" y="104.0" />
-                </edge>
-                <edge source="org.tec.datos1.flow.parts.DiagramView" target="org.tec.datos1.flow.graphics.ASTStorageParser">
-                  <point x="-20.25" y="-59.5" />
-                  <point x="843.75" y="1036.0" />
-                  <point x="786.25" y="1036.0" />
-                  <point x="-77.75" y="59.0" />
-                </edge>
-                <edge source="org.tec.datos1.flow.parts.DiagramView" target="org.tec.datos1.flow.storage.ASTStorage">
-                  <point x="-60.75" y="-59.5" />
-                  <point x="803.25" y="1046.0" />
-                  <point x="366.1565570672712" y="1046.0" />
-                  <point x="366.1565570672712" y="512.0" />
-                  <point x="321.16090325018877" y="512.0" />
-                  <point x="84.75" y="236.0" />
-                </edge>
-                <edge source="org.tec.datos1.flow.parts.DiagramView" target="org.tec.datos1.flow.CodeParser">
-                  <point x="-101.25" y="-59.5" />
-                  <point x="762.75" y="1056.0" />
-                  <point x="197.15655706727114" y="1056.0" />
-                  <point x="0.0" y="47.5" />
-                </edge>
-                <edge source="org.tec.datos1.flow.CodeParser" target="org.tec.datos1.flow.storage.ASTStorage">
-                  <point x="105.66666666666663" y="-47.5" />
-                  <point x="302.82322373393777" y="878.0" />
-                  <point x="316.417139077853" y="878.0" />
-                  <point x="316.417139077853" y="522.0" />
-                  <point x="264.66090325018877" y="522.0" />
-                  <point x="28.25" y="236.0" />
-                </edge>
-                <edge source="org.tec.datos1.flow.graphics.Line" target="org.tec.datos1.flow.graphics.Widget">
-                  <point x="0.0" y="-59.5" />
-                  <point x="1382.0" y="522.0" />
-                  <point x="1295.2301587301586" y="522.0" />
-                  <point x="34.888888888888914" y="25.5" />
-                </edge>
-                <edge source="org.tec.datos1.flow.graphics.Process" target="org.tec.datos1.flow.graphics.Widget">
-                  <point x="0.0" y="-82.0" />
-                  <point x="1152.5" y="522.0" />
-                  <point x="1242.896825396825" y="522.0" />
-                  <point x="-17.444444444444457" y="25.5" />
-                </edge>
-                <edge source="org.tec.datos1.flow.graphics.ASTStorageParser" target="org.tec.datos1.flow.graphics.Widget">
-                  <point x="88.85714285714286" y="-59.0" />
-                  <point x="952.8571428571429" y="868.0" />
-                  <point x="1271.0" y="868.0" />
-                  <point x="1271.0" y="522.0" />
-                  <point x="1260.3412698412696" y="522.0" />
-                  <point x="0.0" y="25.5" />
-                </edge>
-                <edge source="org.tec.datos1.flow.graphics.ASTStorageParser" target="org.tec.datos1.flow.graphics.If">
-                  <point x="-88.8571428571428" y="-59.0" />
-                  <point x="775.1428571428572" y="868.0" />
-                  <point x="659.25" y="868.0" />
-                  <point x="-43.75" y="148.0" />
-                </edge>
-                <edge source="org.tec.datos1.flow.handlers.StepOverHandler" target="org.tec.datos1.flow.debug.DebugStepper">
-                  <point x="0.0" y="-25.5" />
-                  <point x="858.5" y="1449.0" />
-                  <point x="748.1666666666666" y="1449.0" />
-                  <point x="94.66666666666669" y="92.0" />
-                </edge>
-                <edge source="org.tec.datos1.flow.graphics.While" target="org.tec.datos1.flow.graphics.Widget">
-                  <point x="0.0" y="-126.0" />
-                  <point x="495.0" y="492.0" />
-                  <point x="1190.5634920634918" y="492.0" />
-                  <point x="-69.77777777777777" y="25.5" />
-                </edge>
-                <edge source="org.tec.datos1.flow.handlers.StepInHandler" target="org.tec.datos1.flow.debug.DebugStepper">
-                  <point x="0.0" y="-25.5" />
-                  <point x="0.0" y="92.0" />
-                </edge>
-                <edge source="org.tec.datos1.flow.Activator" target="org.tec.datos1.flow.debug.DebugListener">
-                  <point x="0.0" y="-59.0" />
-                  <point x="0.0" y="91.5" />
-                </edge>
-                <edge source="org.tec.datos1.flow.parts.DiagramView" target="org.tec.datos1.flow.graphics.Widget">
-                  <point x="60.75" y="-59.5" />
-                  <point x="924.75" y="1046.0" />
-                  <point x="1482.0" y="1046.0" />
-                  <point x="1482.0" y="512.0" />
-                  <point x="1312.674603174603" y="512.0" />
-                  <point x="52.33333333333326" y="25.5" />
-                </edge>
-                <edge source="org.tec.datos1.flow.graphics.Method" target="org.tec.datos1.flow.graphics.Widget">
-                  <point x="0.0" y="-104.0" />
-                  <point x="917.5" y="512.0" />
-                  <point x="1225.4523809523807" y="512.0" />
-                  <point x="-34.888888888888914" y="25.5" />
-                </edge>
-                <edge source="org.tec.datos1.flow.graphics.ASTStorageParser" target="org.tec.datos1.flow.storage.ASTStorage">
-                  <point x="-133.28571428571422" y="-59.0" />
-                  <point x="730.7142857142858" y="878.0" />
-                  <point x="384.0" y="878.0" />
-                  <point x="384.0" y="522.0" />
-                  <point x="377.66090325018877" y="522.0" />
-                  <point x="141.25" y="236.0" />
-                </edge>
-              </edges>
-              <settings layout="Hierarchic Group" zoom="0.4187271508986975" x="179.62260708678514" y="944.1535399410642" />
-              <SelectedNodes />
-              <Categories>
-                <Category>Fields</Category>
-                <Category>Constructors</Category>
-                <Category>Methods</Category>
-                <Category>Properties</Category>
-                <Category>Inner Classes</Category>
-              </Categories>
-              <SCOPE>All</SCOPE>
-              <VISIBILITY>private</VISIBILITY>
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -218,8 +50,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="AndroidView" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -243,6 +73,8 @@
         </subPane>
       </pane>
       <pane id="Scratches" />
+      <pane id="AndroidView" />
+      <pane id="Scope" />
       <pane id="PackagesPane" />
     </panes>
   </component>
@@ -358,14 +190,16 @@
       <updated>1508991795086</updated>
       <workItem from="1508991812250" duration="391000" />
       <workItem from="1508992936549" duration="81000" />
+      <workItem from="1509595719373" duration="234000" />
+      <workItem from="1509614659250" duration="162000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="472000" />
+    <option name="totallyTimeSpent" value="868000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1440" height="877" extended-state="6" />
+    <frame x="0" y="23" width="1440" height="877" extended-state="0" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -375,19 +209,19 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -559,14 +393,14 @@
               <point x="141.25" y="236.0" />
             </edge>
           </edges>
-          <settings layout="Hierarchic Group" zoom="0.4187271508986975" x="179.62260708678514" y="944.1535399410642" />
+          <settings layout="Hierarchic Group" zoom="0.4187271508986975" x="180.0" y="944.0" />
           <SelectedNodes />
           <Categories>
             <Category>Fields</Category>
-            <Category>Constructors</Category>
-            <Category>Methods</Category>
-            <Category>Properties</Category>
             <Category>Inner Classes</Category>
+            <Category>Constructors</Category>
+            <Category>Properties</Category>
+            <Category>Methods</Category>
           </Categories>
           <SCOPE>All</SCOPE>
           <VISIBILITY>private</VISIBILITY>

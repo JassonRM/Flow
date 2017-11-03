@@ -44,11 +44,11 @@ public class ASTStorageParser {
 		size.lastOutput = start.getOutput();
 		size.maxWidth = start.getWidth();
 
-		size = draw(storage, size);
+		size = draw(storage, size, this.scene);
 		
 		this.size = size;
 		
-		return scene;
+		return this.scene;
 	}
 	
 	/**
@@ -57,7 +57,7 @@ public class ASTStorageParser {
 	 * @param x Posicion en X
 	 * @param y Posicion en Y
 	 */
-	public DiagramSize draw(List<ASTStorage> storage, DiagramSize size) {
+	public DiagramSize draw(List<ASTStorage> storage, DiagramSize size, LinkedList<Widget> scene) {
 		for(ASTStorage storageElement : storage) {
 			ASTNode element = storageElement.getElement();
 			Point input = new Point(size.lastOutput.x, size.lastOutput.y + spacing);
@@ -85,10 +85,10 @@ public class ASTStorageParser {
 					DiagramSize bodySize = new DiagramSize();
 					bodySize.lastOutput = size.lastOutput;
 					bodySize.maxWidth = whileDiagram.getWidth();
-					bodySize = draw(storageElement.getChildren(), bodySize);
+					bodySize = draw(storageElement.getChildren(), bodySize, scene);
 					size.lastOutput = bodySize.lastOutput;
 					
-					Line returnLine = new Line(size.lastOutput, whileDiagram.getInputReturn(), bodySize.maxWidth);
+					Line returnLine = new Line(size.lastOutput, whileDiagram.getInputReturn(), bodySize.maxWidth, LineType.RETURN);
 					scene.add(returnLine);
 					
 					bodySize.maxWidth += 40;
@@ -98,12 +98,12 @@ public class ASTStorageParser {
 					}
 					size.lastOutput = new Point(size.lastOutput.x, size.lastOutput.y + 40);
 
-					Line falseLine = new Line(whileDiagram.getOutputFalse(), size.lastOutput, true, "false", bodySize.maxWidth - whileDiagram.getWidth());
+					Line falseLine = new Line(whileDiagram.getOutputFalse(), size.lastOutput, LineType.JUMP, "false", bodySize.maxWidth - whileDiagram.getWidth());
 					scene.add(falseLine);
 	
 				} else if (clazz.equalsIgnoreCase("DoStatement")) {
 					DoStatement Do = (DoStatement) element;
-					size = draw(storageElement.getChildren(), size);
+					size = draw(storageElement.getChildren(), size, scene);
 					If ifDrawing = new If(Do.toString().replaceAll("\n", ""), input);
 					size.lastOutput = ifDrawing.getOutputTrue();
 					scene.add(ifDrawing);
@@ -127,10 +127,10 @@ public class ASTStorageParser {
 					DiagramSize bodySize = new DiagramSize();
 					bodySize.lastOutput = size.lastOutput;
 					bodySize.maxWidth = 0;
-					bodySize = draw(storageElement.getChildren(), bodySize);
+					bodySize = draw(storageElement.getChildren(), bodySize, scene);
 					size.lastOutput = bodySize.lastOutput;
 					
-					Line returnLine = new Line(size.lastOutput, whileDiagram.getInputReturn(), bodySize.maxWidth);
+					Line returnLine = new Line(size.lastOutput, whileDiagram.getInputReturn(), bodySize.maxWidth, LineType.RETURN);
 					scene.add(returnLine);
 					bodySize.maxWidth += 40;
 					
@@ -139,21 +139,71 @@ public class ASTStorageParser {
 					}
 					size.lastOutput = new Point(size.lastOutput.x, size.lastOutput.y + 40);
 
-					Line falseLine = new Line(whileDiagram.getOutputFalse(), size.lastOutput, true, "false", bodySize.maxWidth - whileDiagram.getWidth());
+					Line falseLine = new Line(whileDiagram.getOutputFalse(), size.lastOutput, LineType.JUMP, "false", bodySize.maxWidth - whileDiagram.getWidth());
 					scene.add(falseLine);
 	
 				} else if (clazz.equalsIgnoreCase("IfStatement")) {
 					IfStatement If = (IfStatement) element;
 					If ifDrawing = new If(If.getExpression().toString(), input);
-					size.lastOutput = ifDrawing.getOutputTrue();
 					if(ifDrawing.getWidth() > size.maxWidth) {
 						size.maxWidth = ifDrawing.getWidth();
 					}
 					scene.add(ifDrawing);
 					
+					LinkedList<Widget> falseScene = new LinkedList<Widget>();
 					DiagramSize falseSize = new DiagramSize();
-					//Dibujar los cuerpos del if
-	
+					falseSize.lastOutput = new Point(ifDrawing.getOutputFalse().x + 20, ifDrawing.getOutputFalse().y);
+					falseSize.maxWidth = 0;
+					falseSize = draw(storageElement.getChildren().get(1).getChildren(), falseSize, falseScene); //False
+					if (falseSize.lastOutput.x - falseSize.maxWidth / 2 <= input.x) {
+						for(Widget widget : falseScene) {
+							widget.fix(input.x - (falseSize.lastOutput.x - falseSize.maxWidth / 2) + 20);
+						}
+						falseSize.lastOutput.x += input.x - (falseSize.lastOutput.x - falseSize.maxWidth / 2) + 20;
+					}
+					Line elseLine = new Line(ifDrawing.getOutputFalse(), new Point(falseSize.lastOutput.x, ifDrawing.getOutputFalse().y), "false");
+					scene.add(elseLine);
+					scene.addAll(falseScene);
+					
+					
+					
+					LinkedList<Widget> trueScene = new LinkedList<Widget>();
+					DiagramSize trueSize = new DiagramSize();
+					trueSize.lastOutput =  new Point(ifDrawing.getOutputTrue().x - 20, ifDrawing.getOutputTrue().y);
+					trueSize.maxWidth = 0;
+					trueSize = draw(storageElement.getChildren().get(0).getChildren(), trueSize, trueScene); //True
+			
+					if (trueSize.lastOutput.x + trueSize.maxWidth / 2 >= input.x) {
+						for(Widget widget : trueScene) {
+							widget.fix(input.x - (trueSize.lastOutput.x + trueSize.maxWidth / 2) - 20);
+						}
+						trueSize.lastOutput.x += input.x - (trueSize.lastOutput.x + trueSize.maxWidth / 2) - 20;
+					}
+					Line ifLine = new Line(ifDrawing.getOutputTrue(), new Point(trueSize.lastOutput.x, ifDrawing.getOutputTrue().y), "true");
+					scene.add(ifLine);
+					scene.addAll(trueScene);
+					
+					if(trueSize.maxWidth > falseSize.maxWidth) {
+						if(size.maxWidth < 2 * (trueSize.maxWidth + this.spacing)) {
+							size.maxWidth = 2 * (trueSize.maxWidth + this.spacing);
+						}
+					} else {
+						if(size.maxWidth < 2 * (falseSize.maxWidth + this.spacing)) {
+							size.maxWidth = 2 * (falseSize.maxWidth + this.spacing);
+						}
+					}
+					
+					int outputY;
+					if (trueSize.lastOutput.y >= falseSize.lastOutput.y) {
+						outputY = trueSize.lastOutput.y;
+					} else {
+						outputY = falseSize.lastOutput.y;
+					}
+					size.lastOutput = new Point(input.x, outputY + 10);
+					Line trueLine = new Line(trueSize.lastOutput, size.lastOutput, LineType.JOIN);
+					Line falseLine = new Line(falseSize.lastOutput, size.lastOutput, LineType.JOIN);
+					scene.add(trueLine);
+					scene.add(falseLine);
 	
 				} else if (clazz.equalsIgnoreCase("TryStatement")) {
 					TryStatement Try = (TryStatement) element;

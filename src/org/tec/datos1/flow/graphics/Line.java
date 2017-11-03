@@ -6,7 +6,7 @@ import org.eclipse.swt.graphics.Point;
 public class Line implements Widget{
 	Point start;
 	Point finish;
-	boolean jump;
+	LineType type;
 	String text= "";
 	int width;
 	
@@ -18,28 +18,33 @@ public class Line implements Widget{
 	public Line(Point start, Point finish) {
 		this.start = start;
 		this.finish = finish;
+		this.type = LineType.NONE;
 	}
 	
 	public Line(Point start, Point finish, int width) {
-		this.start = start;
-		this.finish = finish;
+		this(start, finish);
 		this.width = width;
 	}
 	
-	public Line(Point start, Point finish, boolean jump) {
+	public Line(Point start, Point finish, int width, LineType type) {
 		this(start, finish);
-		this.jump = jump;
+		this.width = width;
+		this.type = type;
 	}
 	
-	public Line(Point start, Point finish, boolean jump, String text) {
+	public Line(Point start, Point finish, LineType type) {
 		this(start, finish);
-		this.jump = jump;
+		this.type = type;
+	}
+	
+	public Line(Point start, Point finish, LineType type, String text) {
+		this(start, finish, type);
 		this.text = text;
 	}	
 	
-	public Line(Point start, Point finish, boolean jump, String text, int width) {
+	public Line(Point start, Point finish, LineType type, String text, int width) {
 		this(start, finish, width);
-		this.jump = jump;
+		this.type = type;
 		this.text = text;
 	}	
 	
@@ -53,29 +58,40 @@ public class Line implements Widget{
 	 * @param gc Contexto grafico en el cual se va a dibujar
 	 */
 	public void draw(GC gc) {
-		if (jump){
-			gc.drawText(text, this.start.x + 10, this.start.y - 15);
-			gc.drawLine(this.start.x, this.start.y, this.start.x + this.width / 2 + 20, this.start.y);
-			gc.drawLine(this.start.x + this.width / 2 + 20, this.start.y, this.start.x + this.width / 2 + 20, this.finish.y);
-			gc.drawLine(this.start.x + this.width / 2 + 20, this.finish.y,	this.finish.x, this.finish.y);
-		} else if(this.finish.y < this.start.y) {
+		switch (this.type) {
+		case RETURN:
 			gc.drawLine(this.start.x, this.start.y, this.start.x, this.start.y + 10);
 			gc.drawLine(this.start.x, this.start.y + 10, this.start.x - this.width / 2 - 20, this.start.y + 10);
 			gc.drawLine(this.start.x - this.width / 2 - 20, this.start.y + 10, this.start.x - this.width / 2 - 20, this.finish.y);
 			gc.drawLine(this.start.x - this.width / 2 - 20, this.finish.y, this.finish.x, this.finish.y);
-		} else if (this.start.x != this.finish.x) {
-			if (this.finish.x < this.start.x) {
-				gc.drawText(text, start.x - 30, start.y - 15);
+			break;
+		case JOIN:
+			gc.drawLine(this.start.x, this.start.y, this.start.x, this.finish.y);
+			gc.drawLine(this.start.x, this.finish.y, this.finish.x, this.finish.y);
+			break;
+		case JUMP:
+			gc.drawText(text, this.start.x + 10, this.start.y - 15);
+			gc.drawLine(this.start.x, this.start.y, this.start.x + this.width / 2 + 20, this.start.y);
+			gc.drawLine(this.start.x + this.width / 2 + 20, this.start.y, this.start.x + this.width / 2 + 20, this.finish.y);
+			gc.drawLine(this.start.x + this.width / 2 + 20, this.finish.y,	this.finish.x, this.finish.y);
+			break;
+		case NONE:
+			if (this.start.x != this.finish.x) {
+				if (this.finish.x < this.start.x) {
+					gc.drawText(text, start.x - 30, start.y - 15);
+				} else {
+					gc.drawText(text, this.start.x + 10, this.start.y - 15);
+				}
+				gc.drawLine(this.start.x, this.start.y, this.finish.x, this.start.y);
+				gc.drawLine(this.finish.x, this.start.y, this.finish.x, this.finish.y);
 			} else {
-				gc.drawText(text, this.start.x + 10, this.start.y - 15);
+				gc.drawText(text, this.start.x + 5, this.start.y + 5);
+				gc.drawLine(this.start.x, this.start.y, this.finish.x, this.finish.y);
 			}
-			gc.drawLine(this.start.x, this.start.y, this.finish.x, this.start.y);
-			gc.drawLine(this.finish.x, this.start.y, this.finish.x, this.finish.y);
-		} else {
-			gc.drawText(text, this.start.x + 5, this.start.y + 5);
-			gc.drawLine(this.start.x, this.start.y, this.finish.x, this.finish.y);
+			break;
 		}
-	}
+		}
+
 	@Override
 	public void fix(int x) {
 		start = new Point(start.x + x, start.y);

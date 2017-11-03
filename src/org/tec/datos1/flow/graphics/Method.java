@@ -86,7 +86,7 @@ public class Method implements Widget{
 	public int getWidth() {
 		Shell shell = new Shell();
 		GC gc = new GC(shell);
-		return gc.stringExtent(text).x + 20;
+		return gc.stringExtent(text).x + 40;
 	}
 	
 }

@@ -13,16 +13,19 @@ public class Process implements Widget{
 	String text;
 	Point input;
 	Point output;
+	int line;
 	
 	/**
 	 * Constructor para el grafico de un proceso
 	 * @param text Texto que va a contener el proceso
 	 * @param input Punto de entrada del proceso
 	 */
-	public Process(String text, Point input) {
+	public Process(String text, Point input, int line) {
 		this.input = input;
 		this.output = new Point(input.x, input.y + 40);
 		this.text = text;
+		this.line = line;
+		
 	}
 	/**
 	 * Constructor para el grafico de un proceso
@@ -31,8 +34,8 @@ public class Process implements Widget{
 	 * @param x Coordenada en x del punto de entrada del proceso
 	 * @param y Coordenada en y del punto de entrada del proceso
 	 */
-	public Process(String text, int x, int y) {
-		this(text, new Point(x, y));
+	public Process(String text, int x, int y, int line) {
+		this(text, new Point(x, y), line);
 	}
 	
 	/**
@@ -81,5 +84,8 @@ public class Process implements Widget{
 		Shell shell = new Shell();
 		GC gc = new GC(shell);
 		return gc.stringExtent(text).x + 20;
+	}
+	public int getLine() {
+		return this.line;
 	}
 }

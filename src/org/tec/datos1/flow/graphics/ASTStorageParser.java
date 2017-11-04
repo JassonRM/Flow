@@ -78,7 +78,7 @@ public class ASTStorageParser {
 				if (clazz.equalsIgnoreCase("WhileStatement")) {
 	
 					WhileStatement While = (WhileStatement) element;
-					While whileDiagram = new While(While.getExpression().toString(), input);
+					While whileDiagram = new While(While.getExpression().toString(), input, storageElement.getLineNumber());
 					size.lastOutput = whileDiagram.getOutputTrue();
 					scene.add(whileDiagram);
 					
@@ -104,20 +104,55 @@ public class ASTStorageParser {
 				} else if (clazz.equalsIgnoreCase("DoStatement")) {
 					DoStatement Do = (DoStatement) element;
 					size = draw(storageElement.getChildren(), size, scene);
-					If ifDrawing = new If(Do.toString().replaceAll("\n", ""), input);
-					size.lastOutput = ifDrawing.getOutputTrue();
-					scene.add(ifDrawing);
-					break;
+					
+					Point newInput = new Point(size.lastOutput.x, size.lastOutput.y + spacing);
+					Line line = new Line(size.lastOutput, newInput, LineType.NONE);
+					scene.add(line);
+					While doDrawing = new While(Do.getExpression().toString(), newInput, storageElement.getLineNumber());
+					scene.add(doDrawing);
+					
+					size.lastOutput = doDrawing.getInputReturn();
+					input.y -= 10;
+					Line returnLine = new Line(size.lastOutput, input, LineType.DORETURN);
+					scene.add(returnLine);
+					
+					size.lastOutput = doDrawing.outputTrue;
+					
+					
+					
 					
 				} else if (clazz.equalsIgnoreCase("EnhancedForStatement")) {
 					EnhancedForStatement EnhancedFor = (EnhancedForStatement) element;
 	
-					System.out.println("EnhancedFor: " + EnhancedFor.getExpression());
+					While whileDiagram = new While(EnhancedFor.getParameter().toString() + ":" + EnhancedFor.getExpression(), input, storageElement.getLineNumber());
+					size.lastOutput = whileDiagram.getOutputTrue();
+					if(whileDiagram.getWidth() > size.maxWidth) {
+						size.maxWidth = whileDiagram.getWidth();
+					}
+					scene.add(whileDiagram);
+					
+					DiagramSize bodySize = new DiagramSize();
+					bodySize.lastOutput = size.lastOutput;
+					bodySize.maxWidth = 0;
+					bodySize = draw(storageElement.getChildren(), bodySize, scene);
+					size.lastOutput = bodySize.lastOutput;
+					
+					Line returnLine = new Line(size.lastOutput, whileDiagram.getInputReturn(), bodySize.maxWidth, LineType.RETURN);
+					scene.add(returnLine);
+					bodySize.maxWidth += 40;
+					
+					if(bodySize.maxWidth > size.maxWidth) {
+						size.maxWidth = bodySize.maxWidth;
+					}
+					size.lastOutput = new Point(size.lastOutput.x, size.lastOutput.y + 40);
+
+					Line falseLine = new Line(whileDiagram.getOutputFalse(), size.lastOutput, LineType.JUMP, "", bodySize.maxWidth - whileDiagram.getWidth());
+					scene.add(falseLine);
 	
 				} else if (clazz.equalsIgnoreCase("ForStatement")) {
 					ForStatement For = (ForStatement) element;
 	
-					While whileDiagram = new While(For.getExpression().toString(), input);
+					While whileDiagram = new While(For.getExpression().toString(), input, storageElement.getLineNumber());
 					size.lastOutput = whileDiagram.getOutputTrue();
 					if(whileDiagram.getWidth() > size.maxWidth) {
 						size.maxWidth = whileDiagram.getWidth();
@@ -144,7 +179,7 @@ public class ASTStorageParser {
 	
 				} else if (clazz.equalsIgnoreCase("IfStatement")) {
 					IfStatement If = (IfStatement) element;
-					If ifDrawing = new If(If.getExpression().toString(), input);
+					If ifDrawing = new If(If.getExpression().toString(), input, storageElement.getLineNumber());
 					if(ifDrawing.getWidth() > size.maxWidth) {
 						size.maxWidth = ifDrawing.getWidth();
 					}
@@ -212,13 +247,18 @@ public class ASTStorageParser {
 	
 				} else if (clazz.equalsIgnoreCase("ExpressionStatement")) {
 	
-					ExpressionStatement Expression = (ExpressionStatement) element;
-	
-					//System.out.println(Expression.getExpression());
+					ExpressionStatement expression = (ExpressionStatement) element;
+
+					Process statement = new Process(expression.toString().replaceAll("\n", ""), input, storageElement.getLineNumber());
+					size.lastOutput = statement.getOutput();
+					if(statement.getWidth() > size.maxWidth) {
+						size.maxWidth = statement.getWidth();
+					}
+					scene.add(statement);
 	
 				} else if (clazz.equalsIgnoreCase("VariableDeclarationStatement")) {
 					VariableDeclarationStatement variable = (VariableDeclarationStatement) element;
-					Process statement = new Process(variable.toString().replaceAll("\n", ""), input);
+					Process statement = new Process(variable.toString().replaceAll("\n", ""), input, storageElement.getLineNumber());
 					size.lastOutput = statement.getOutput();
 					if(statement.getWidth() > size.maxWidth) {
 						size.maxWidth = statement.getWidth();
@@ -227,7 +267,8 @@ public class ASTStorageParser {
 					
 				} else if (clazz.equalsIgnoreCase("MethodInvocation")) {			
 					MethodInvocation method = (MethodInvocation) element;
-					Method methodDiagram = new Method(method.getName().toString(), input);
+					String argumentos = method.arguments().toString().replace('[', '(').replace(']', ')');
+					Method methodDiagram = new Method(method.getName().toString() + argumentos, input, storageElement.getLineNumber());
 					size.lastOutput = methodDiagram.getOutput();
 					if(methodDiagram.getWidth() > size.maxWidth) {
 						size.maxWidth = methodDiagram.getWidth();

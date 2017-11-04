@@ -15,13 +15,14 @@ public class If implements Widget{
 	Point outputFalse;
 	Rectangle focus;
 	int[] shape;
+	int line;
 	
 	/**
 	 * Constructor para el gr�fico de un condicional\
 	 * @param text Texto que va a contener el condicional
 	 * @param input Punto de entrada del condicional
 	 */
-	public If(String text, Point input) {
+	public If(String text, Point input, int line) {
 		Shell shell = new Shell();
 		GC gc = new GC(shell);
 		
@@ -29,6 +30,7 @@ public class If implements Widget{
 		this.outputTrue = new Point(input.x - 30 - gc.stringExtent(text).x / 2, input.y + gc.stringExtent(text).y / 2 + 20);
 		this.outputFalse = new Point(input.x + 30 + gc.stringExtent(text).x / 2, input.y + gc.stringExtent(text).y / 2 + 20);
 		this.text = text;
+		this.line = line;
 	}
 	/**
 	 * Constructor para el grafico de un proceso
@@ -36,8 +38,8 @@ public class If implements Widget{
 	 * @param x Coordenada en x del punto de entrada del condicional
 	 * @param y Coordenada en y del punto de entrada del condicional
 	 */
-	public If(String text, int x, int y) {
-		this(text, new Point(x, y));
+	public If(String text, int x, int y, int line) {
+		this(text, new Point(x, y), line);
 	}
 	
 	/**

@@ -59,6 +59,11 @@ public class Line implements Widget{
 	 */
 	public void draw(GC gc) {
 		switch (this.type) {
+		case DORETURN:
+			gc.drawLine(this.start.x, this.start.y, this.start.x - this.width / 2 - 20, this.start.y);
+			gc.drawLine(this.start.x - this.width / 2 - 20, this.start.y, this.start.x - this.width / 2 - 20, this.finish.y);
+			gc.drawLine(this.start.x - this.width / 2 - 20, this.finish.y, this.finish.x, this.finish.y);
+			break;
 		case RETURN:
 			gc.drawLine(this.start.x, this.start.y, this.start.x, this.start.y + 10);
 			gc.drawLine(this.start.x, this.start.y + 10, this.start.x - this.width / 2 - 20, this.start.y + 10);

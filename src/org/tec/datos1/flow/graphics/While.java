@@ -15,13 +15,14 @@ public class While implements Widget{
 	Point outputFalse;
 	Point inputReturn;
 	Rectangle focus;
+	int line;
 	
 	/**
 	 * Constructor para el grafico de un condicional
 	 * @param text Texto que va a contener el condicional
 	 * @param input Punto de entrada del condicional
 	 */
-	public While(String text, Point input) {
+	public While(String text, Point input, int line) {
 		Shell shell = new Shell();
 		GC gc = new GC(shell);
 		
@@ -32,6 +33,7 @@ public class While implements Widget{
 		this.inputReturn = new Point(input.x - 30 - gc.stringExtent(text).x / 2, input.y + gc.stringExtent(text).y / 2 + 20);
 		
 		this.text = text;
+		this.line = line;
 	}
 	/**
 	 * Constructor para el grafico de un proceso
@@ -40,8 +42,8 @@ public class While implements Widget{
 	 * @param x Coordenada en x del punto de entrada del condicional
 	 * @param y Coordenada en y del punto de entrada del condicional
 	 */
-	public While(String text, int x, int y) {
-		this(text, new Point(x, y));
+	public While(String text, int x, int y, int line) {
+		this(text, new Point(x, y), line);
 	}
 	
 	/**

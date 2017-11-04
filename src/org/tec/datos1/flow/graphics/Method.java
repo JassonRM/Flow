@@ -13,16 +13,18 @@ public class Method implements Widget{
 	Point input;
 	Point output;
 	Rectangle focus;
+	int line;
 	
 	/**
 	 * Constructor para el grafico de un metodo
 	 * @param text Texto que va a contener el metodo
 	 * @param input Punto de entrada del metodo
 	 */
-	public Method(String text, Point input) {
+	public Method(String text, Point input, int line) {
 		this.input = input;
 		this.output = new Point(input.x, input.y + 40);
 		this.text = text;
+		this.line = line;
 	}
 	/**
 	 * Constructor para el grafico de un metodo
@@ -31,8 +33,8 @@ public class Method implements Widget{
 	 * @param x Coordenada en x del punto de entrada del metodo
 	 * @param y Coordenada en y del punto de entrada del metodo
 	 */
-	public Method(String text, int x, int y) {
-		this(text, new Point(x, y));
+	public Method(String text, int x, int y, int line) {
+		this(text, new Point(x, y), line);
 	}
 	
 	/**
@@ -89,4 +91,7 @@ public class Method implements Widget{
 		return gc.stringExtent(text).x + 40;
 	}
 	
+	public int getLine() {
+		return this.line;
+	}
 }

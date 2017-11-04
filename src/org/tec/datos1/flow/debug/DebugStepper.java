@@ -2,12 +2,9 @@ package org.tec.datos1.flow.debug;
 
 import org.eclipse.debug.core.DebugException;
 import org.eclipse.debug.core.model.IStackFrame;
-import org.eclipse.jdt.core.ICompilationUnit;
-import org.eclipse.jdt.core.dom.ASTParser;
 import org.eclipse.jdt.core.dom.MethodInvocation;
 import org.eclipse.jdt.debug.core.IJavaThread;
-import org.tec.datos1.flow.CodeParser;
-import org.tec.datos1.flow.handlers.Methods;
+import org.tec.datos1.flow.parts.DiagramView;
 import org.tec.datos1.flow.storage.ASTStorage;
 
 public class DebugStepper {
@@ -27,17 +24,18 @@ public class DebugStepper {
 	 */
 	public static void stepInto() {
 		try {
-			
 			ASTStorage step = ASTStorage.getRoot().findLine(update());
 			if (step.getElement() instanceof MethodInvocation) {
-				MethodInvocation mI = (MethodInvocation)step.getElement();
-				ICompilationUnit unit = Methods.findClass(mI.resolveMethodBinding().getDeclaringClass().getQualifiedName());
-				CodeParser.executeSpecific(unit);
-				ASTStorage.getMethod(mI.getName().toString()).print();
-				
+				debugThread.stepInto();
+				int currentLine = update();
+				DiagramView.setLineNumber(currentLine);
 			}
+			else {
+				stepOver();
+			}
+			
 		} catch (Exception e) {
-			e.printStackTrace();
+			stepOver();
 		}
 		
 	}
@@ -47,10 +45,9 @@ public class DebugStepper {
 	 */
 	public static void stepOver() {
 		try {
+			debugThread.stepOver();
 			int currentLine = update();
-			ASTStorage storage = ASTStorage.getRoot().findLine(currentLine);
-			System.out.println(storage.getName());
- 			debugThread.stepOver();
+			DiagramView.setLineNumber(currentLine);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -63,33 +60,14 @@ public class DebugStepper {
 	public static int update(){
 		try {
 			IStackFrame Frame = null;
-			
 			while (Frame == null) {
 				Frame = debugThread.getTopStackFrame();
 				
 			}
 			return Frame.getLineNumber();
-			//System.out.println(Frame.getName());
-			//System.out.println(Frame.getModelIdentifier());
-			
-			
 		} catch (DebugException e) {
 			e.printStackTrace();
 		}
 		return 0;
 	}
-	
-	/**
-	 * Este método se encarga de ejecutar la acción de 
-	 * Resume del debugger de eclipse
-	 */
-	public static void resume() {
-		try {
-			debugThread.resume();
-		} catch (DebugException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	
 }

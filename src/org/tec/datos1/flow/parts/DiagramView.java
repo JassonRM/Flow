@@ -27,6 +27,7 @@ public class DiagramView {
 	LinkedList<Widget> diagram;
 	DiagramSize diagramSize;
 	static Combo methodSelector;
+	private static Integer lineNumber;
 	
 	/**
 	 * Crea la vista para el plugin
@@ -104,5 +105,15 @@ public class DiagramView {
 	
 	public static void setMethods(String[] methods) {
 		methodSelector.setItems(methods);
+	}
+
+
+	public static Integer getLineNumber() {
+		return lineNumber;
+	}
+
+
+	public static void setLineNumber(Integer lineNumber) {
+		DiagramView.lineNumber = lineNumber;
 	}
 }

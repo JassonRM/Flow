@@ -51,7 +51,7 @@ public class Start implements Widget{
 	 * @param gc Contexto grafico en el cual se va a dibujar
 	 */
 	@Override
-	public void draw(GC gc) {
+	public void draw(GC gc, int line) {
 		gc.drawOval(input.x - this.width / 2, input.y, this.width, 40);
 		gc.drawText("Start", input.x - gc.stringExtent("Start").x / 2, input.y + (40 - gc.stringExtent("Start").y) / 2);
 	}

@@ -1,7 +1,10 @@
 package org.tec.datos1.flow.graphics;
 
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.widgets.Display;
 
 public class Line implements Widget{
 	Point start;
@@ -57,7 +60,11 @@ public class Line implements Widget{
 	 * Dibuja el elemento en el contexto grafico
 	 * @param gc Contexto grafico en el cual se va a dibujar
 	 */
-	public void draw(GC gc) {
+	public void draw(GC gc, int line) {
+	Display display = Display.getCurrent();
+	Color color = display.getSystemColor(SWT.COLOR_BLACK);
+	gc.setForeground(color);
+	gc.setLineWidth(1);
 		switch (this.type) {
 		case DORETURN:
 			gc.drawLine(this.start.x, this.start.y, this.start.x - this.width / 2 - 20, this.start.y);

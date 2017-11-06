@@ -23,11 +23,11 @@ import org.tec.datos1.flow.storage.DiagramSize;
 
 
 public class DiagramView {
-	Canvas canvas;
+	private static Canvas canvas;
 	LinkedList<Widget> diagram;
 	DiagramSize diagramSize;
 	static Combo methodSelector;
-	private static Integer lineNumber;
+	private static Integer lineNumber = -1;
 	
 	/**
 	 * Crea la vista para el plugin
@@ -50,7 +50,7 @@ public class DiagramView {
 		
 		ScrolledComposite container = new ScrolledComposite(parent, SWT.H_SCROLL | SWT.V_SCROLL);
 		container.setLayoutData(diagramLayout);
-		this.canvas = new Canvas(container, SWT.NONE);
+		canvas = new Canvas(container, SWT.NONE);
 		canvas.setSize(1000, 1000);
 		container.setContent(canvas);
 
@@ -72,6 +72,7 @@ public class DiagramView {
 							widget.fix(diagramSize.maxWidth / 2 - 80);
 						}
 					}
+					lineNumber = -1;
 				} catch (Exception e1) {
 					System.err.println("No se pudo parsear el arbol");
 					e1.printStackTrace();
@@ -89,7 +90,7 @@ public class DiagramView {
 			@Override
 			public void paintControl(PaintEvent e) {
 				for(Widget widget : diagram) {
-					widget.draw(e.gc);
+					widget.draw(e.gc, lineNumber);
 				}
 			}
 		});
@@ -101,6 +102,7 @@ public class DiagramView {
 	 */
 	public void draw() {
 		canvas.redraw();
+		canvas.update();
 	}
 	
 	public static void setMethods(String[] methods) {
@@ -115,5 +117,6 @@ public class DiagramView {
 
 	public static void setLineNumber(Integer lineNumber) {
 		DiagramView.lineNumber = lineNumber;
+		canvas.redraw();
 	}
 }

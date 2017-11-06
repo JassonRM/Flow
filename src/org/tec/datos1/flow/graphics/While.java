@@ -79,7 +79,19 @@ public class While implements Widget{
 	 * param gc Contexto grafico en el que se va a dibujar
 	 */
 	@Override
-	public void draw(GC gc) {
+	public void draw(GC gc, int line) {
+		Display display = Display.getCurrent();
+		Color color;
+		int border;
+		if (line == this.line) {
+			color = display.getSystemColor(SWT.COLOR_RED);
+			border = 3;
+		} else {
+			color = display.getSystemColor(SWT.COLOR_BLACK);
+			border = 1;
+		}
+		gc.setForeground(color);
+		gc.setLineWidth(border);
 		
 		int [] shape = new int[] {input.x, input.y, outputFalse.x, outputFalse.y, outputTrue.x, outputTrue.y, inputReturn.x, inputReturn.y};
 		

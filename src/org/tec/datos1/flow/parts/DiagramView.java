@@ -23,7 +23,7 @@ import org.tec.datos1.flow.storage.DiagramSize;
 
 
 public class DiagramView {
-	private static Canvas canvas;
+	private Canvas canvas;
 	LinkedList<Widget> diagram;
 	DiagramSize diagramSize;
 	static Combo methodSelector;
@@ -58,6 +58,7 @@ public class DiagramView {
 		ASTStorageParser astParser = new ASTStorageParser();
 		diagram = new LinkedList<Widget>();
 		
+
 		//Anade todo al selector		
 		methodSelector.addSelectionListener(new SelectionListener() {
 
@@ -95,20 +96,20 @@ public class DiagramView {
 			}
 		});
 	}
-
-
-	/**
-	 * Actualiza el diagrama y la pantalla
-	 */
-	public void draw() {
-		canvas.redraw();
-		canvas.update();
-	}
 	
 	public static void setMethods(String[] methods) {
 		methodSelector.setItems(methods);
 	}
 
+	public static void selectMethod(String method) {
+		System.out.println(method);
+		String[] methods = methodSelector.getItems();
+		for(int index = 0; index < methods.length ; index++) {
+			if (methods[index].equals(method)) {
+				methodSelector.select(index);
+			}
+		}
+	}
 
 	public static Integer getLineNumber() {
 		return lineNumber;
@@ -117,6 +118,5 @@ public class DiagramView {
 
 	public static void setLineNumber(Integer lineNumber) {
 		DiagramView.lineNumber = lineNumber;
-		canvas.redraw();
 	}
 }

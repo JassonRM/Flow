@@ -10,6 +10,7 @@ import java.util.List;
 
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.e4.core.di.annotations.Execute;
+import org.eclipse.jdt.core.dom.MethodInvocation;
 
 public class StepInHandler {
 	/**
@@ -20,19 +21,5 @@ public class StepInHandler {
 	public void execute(Shell shell) {
 		if (DebugStepper.getDebugThread() != null)
 			DebugStepper.stepInto();
-		try {
-			CodeParser.execute();
-			List<String> methods = ASTStorage.getMethods();
-			String[] array = new String[methods.size()];
-			int cont = 0;
-			for(String method : methods) {
-				array[cont] = method;
-				cont++;
-			}
-			DiagramView.setMethods(array);
-			
-		} catch (ExecutionException e) {
-			e.printStackTrace();
-		}
 	}
 }

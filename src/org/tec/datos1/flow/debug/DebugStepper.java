@@ -1,9 +1,13 @@
 package org.tec.datos1.flow.debug;
 
+import java.util.List;
+
+import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.debug.core.DebugException;
 import org.eclipse.debug.core.model.IStackFrame;
 import org.eclipse.jdt.core.dom.MethodInvocation;
 import org.eclipse.jdt.debug.core.IJavaThread;
+import org.tec.datos1.flow.CodeParser;
 import org.tec.datos1.flow.parts.DiagramView;
 import org.tec.datos1.flow.storage.ASTStorage;
 
@@ -29,6 +33,21 @@ public class DebugStepper {
 				debugThread.stepInto();
 				int currentLine = update();
 				DiagramView.setLineNumber(currentLine);
+				try {
+					CodeParser.execute();
+					List<String> methods = ASTStorage.getMethods();
+					String[] array = new String[methods.size()];
+					int cont = 0;
+					for(String method : methods) {
+						array[cont] = method;
+						cont++;
+					}
+					DiagramView.setMethods(array);
+					DiagramView.selectMethod(((MethodInvocation) step.getElement()).getName().toString());
+					
+				} catch (ExecutionException e) {
+					e.printStackTrace();
+				}
 			}
 			else {
 				stepOver();

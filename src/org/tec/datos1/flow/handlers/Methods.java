@@ -28,7 +28,6 @@ public class Methods extends ASTVisitor{
 			String[] lista = current.getResource().getProjectRelativePath().toString().split("/");
 			int pos = lista.length;
 			if (clazz.equals(lista[pos-3] + "." +lista[pos-2] + "." + lista[pos-1])) {
-				System.out.println(clazz);
 				return current;
 			}
 		}

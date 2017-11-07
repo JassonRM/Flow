@@ -4,6 +4,8 @@ package org.tec.datos1.flow.parts;
 
 import java.util.LinkedList;
 import javax.inject.Inject;
+
+import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.ScrolledComposite;
 import org.eclipse.swt.events.PaintEvent;
@@ -23,9 +25,9 @@ import org.tec.datos1.flow.storage.DiagramSize;
 
 
 public class DiagramView {
-	private Canvas canvas;
-	LinkedList<Widget> diagram;
-	DiagramSize diagramSize;
+	private static Canvas canvas;
+	static LinkedList<Widget> diagram;
+	static DiagramSize diagramSize;
 	static Combo methodSelector;
 	private static Integer lineNumber = -1;
 	
@@ -55,30 +57,16 @@ public class DiagramView {
 		container.setContent(canvas);
 
 
-		ASTStorageParser astParser = new ASTStorageParser();
+
 		diagram = new LinkedList<Widget>();
 		
 
-		//Anade todo al selector		
+		//Anade todo al selector
 		methodSelector.addSelectionListener(new SelectionListener() {
-
+		
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				try {
-					diagram = astParser.parse(ASTStorage.getMethod(methodSelector.getText()).getChildren());
-					diagramSize = astParser.getSize();
-					canvas.setSize(diagramSize.maxWidth + 60, diagramSize.lastOutput.y + 40);
-					if (diagramSize.maxWidth / 2 > 100) {
-						for(Widget widget : diagram) {
-							widget.fix(diagramSize.maxWidth / 2 - 80);
-						}
-					}
-					lineNumber = -1;
-				} catch (Exception e1) {
-					System.err.println("No se pudo parsear el arbol");
-					e1.printStackTrace();
-				}
-				canvas.redraw();
+				Select();
 			}
 
 			@Override
@@ -97,16 +85,47 @@ public class DiagramView {
 		});
 	}
 	
+	public static void Select() {
+		try {
+			ASTStorageParser astParser = new ASTStorageParser();
+			if (lineNumber == -1) {
+				diagram = astParser.parse(ASTStorage.getMethod(methodSelector.getText()).getChildren());
+			}else {
+				ASTStorage storage = ASTStorage.getMethodByLine(lineNumber);
+				diagram = astParser.parse(storage.getChildren());
+				methodSelector.setText(((MethodDeclaration)storage.getElement()).getName().toString());
+			}
+			diagramSize = astParser.getSize();
+			canvas.setSize(diagramSize.maxWidth + 60, diagramSize.lastOutput.y + 40);
+			if (diagramSize.maxWidth / 2 > 100) {
+				for(Widget widget : diagram) {
+					widget.fix(diagramSize.maxWidth / 2 - 80);
+				}
+			}
+			canvas.redraw();
+			lineNumber = -1;
+		} catch (Exception e1) {
+			System.err.println("No se pudo parsear el arbol");
+			e1.printStackTrace();
+			canvas.redraw();
+		}
+		
+		
+		
+	}
+
 	public static void setMethods(String[] methods) {
 		methodSelector.setItems(methods);
 	}
 
 	public static void selectMethod(String method) {
-		System.out.println(method);
 		String[] methods = methodSelector.getItems();
 		for(int index = 0; index < methods.length ; index++) {
 			if (methods[index].equals(method)) {
 				methodSelector.select(index);
+				Select();
+				
+				
 			}
 		}
 	}
@@ -116,7 +135,13 @@ public class DiagramView {
 	}
 
 
-	public static void setLineNumber(Integer lineNumber) {
-		DiagramView.lineNumber = lineNumber;
+	public static void setLineNumber(Integer LineNumber) {
+		lineNumber = LineNumber;
+		canvas.redraw();
+		
+		
+	}
+	public static Combo getMethodSelector() {
+		return methodSelector;
 	}
 }

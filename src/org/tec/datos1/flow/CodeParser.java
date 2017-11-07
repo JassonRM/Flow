@@ -36,6 +36,7 @@ public class CodeParser {
     		System.err.println("Debe tener una clase abierta");
     	}	
     	try {
+    		
     		createAST(IcUnit);
     		
     	}catch(JavaModelException exeption){}

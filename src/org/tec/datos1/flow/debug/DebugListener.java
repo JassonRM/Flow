@@ -11,6 +11,7 @@ import org.eclipse.jdt.debug.core.IJavaDebugTarget;
 import org.eclipse.jdt.debug.core.IJavaLineBreakpoint;
 import org.eclipse.jdt.debug.core.IJavaThread;
 import org.eclipse.jdt.debug.core.IJavaType;
+import org.tec.datos1.flow.handlers.StepOverHandler;
 import org.tec.datos1.flow.parts.DiagramView;
 
 public class DebugListener implements IJavaBreakpointListener{
@@ -42,9 +43,7 @@ public class DebugListener implements IJavaBreakpointListener{
 		try {
 			lineNumber = lineBreak.getLineNumber();
 		}catch(CoreException e) {}
-		DiagramView.setLineNumber(lineNumber);
 		
-		System.out.println(DiagramView.getLineNumber());
 		return lineNumber;
 	}
 

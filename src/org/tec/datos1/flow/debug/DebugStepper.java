@@ -5,6 +5,7 @@ import java.util.List;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.debug.core.DebugException;
 import org.eclipse.debug.core.model.IStackFrame;
+import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.MethodInvocation;
 import org.eclipse.jdt.debug.core.IJavaThread;
 import org.tec.datos1.flow.CodeParser;
@@ -43,8 +44,9 @@ public class DebugStepper {
 						cont++;
 					}
 					DiagramView.setMethods(array);
-					DiagramView.selectMethod(((MethodInvocation) step.getElement()).getName().toString());
 					
+					DiagramView.selectMethod(((MethodInvocation) step.getElement()).getName().toString());
+					DiagramView.setLineNumber(currentLine);
 				} catch (ExecutionException e) {
 					e.printStackTrace();
 				}
@@ -65,8 +67,14 @@ public class DebugStepper {
 	public static void stepOver() {
 		try {
 			debugThread.stepOver();
+			
 			int currentLine = update();
 			DiagramView.setLineNumber(currentLine);
+			if ( !DiagramView.getMethodSelector().getText().equalsIgnoreCase(
+					((MethodDeclaration)ASTStorage.getMethodByLine(currentLine).getElement())
+					.getName().toString())) {
+				DiagramView.Select();
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

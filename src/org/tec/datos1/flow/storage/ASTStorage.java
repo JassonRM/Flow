@@ -29,14 +29,12 @@ public class ASTStorage {
 	ASTNode Element;
 	List<ASTStorage> Children;
 	public Boolean then;
-	//ASTStorage Parent;
 	static CompilationUnit compilationUnit;
 	
 	
 	public ASTStorage(ASTNode Element,ASTStorage Parent,String Name) {
 		this.Element = Element;
 		this.Children = new ArrayList<ASTStorage>();
-		//this.Parent = Parent;
 		this.Name = Name;
 	}
 	
@@ -79,6 +77,10 @@ public class ASTStorage {
 		compilationUnit = compUnit;
 	}
 	
+	public static CompilationUnit getCompUnit() {
+		return compilationUnit;
+	}
+	
 	public static List<String> getMethods() {
 		List<String> result = new ArrayList<>();
 		if (root == null) {
@@ -96,6 +98,20 @@ public class ASTStorage {
 		}
 		return null;
 	}
+	
+	public static ASTStorage getMethodByLine(Integer Line) {
+		ASTStorage result = null;;
+		for (ASTStorage method :root.getChildren()) {
+			if (method.getLineNumber() > Line) {
+				return result;
+			}
+			result = method;
+		}
+		return result;
+	}
+	
+	
+	
 	
 	public Integer getLineNumber() {
 		return compilationUnit.getLineNumber(Element.getStartPosition());
@@ -162,7 +178,7 @@ public class ASTStorage {
 			this.addChild(WhileStorage);
 			
 			Block block = (Block) While.getBody();
-
+			
 			WhileStorage.addChildren(block.statements());
 
 		} else if (clazz.equalsIgnoreCase("DoStatement")) {
@@ -244,100 +260,8 @@ public class ASTStorage {
 			VariableDeclarationStatement Variable = (VariableDeclarationStatement) child;
 			ASTStorage VariableStorage = new ASTStorage(Variable,Variable.toString());
 			this.addChild(VariableStorage);
-		}else {
-			System.out.println("OTRO: " + clazz);
-		}
+		}else {}
 
     }
-	
-	/**
-	 * Este método se encarga de mostrar todo lo que se encuentra dentro del arbol
-	 * @throws ScriptException 
-	 */
-	public void print() throws ScriptException {
-		if (Element == null) {
-			if (this.then) {
-				
-			}else {
-				System.out.println("Else: ");
-			}
-
-		} else {
-			String[] clazz_aux = Element.getClass().toString().split("\\.");
-			String clazz = clazz_aux[clazz_aux.length - 1];
-			
-			System.out.print(compilationUnit.getLineNumber(Element.getStartPosition()) + " ");
-
-			if (clazz.equalsIgnoreCase("WhileStatement")) {
-
-				WhileStatement While = (WhileStatement) Element;
-
-				System.out.println("While(" + While.getExpression() + ")");
-
-			} else if (clazz.equalsIgnoreCase("DoStatement")) {
-
-				DoStatement Do = (DoStatement) Element;
-				
-
-				System.out.println("Do While:" + Do.getExpression());
-
-			} else if (clazz.equalsIgnoreCase("EnhancedForStatement")) {
-				EnhancedForStatement EnhancedFor = (EnhancedForStatement) Element;
-
-				System.out.println("EnhancedFor: " + EnhancedFor.getExpression());
-
-			} else if (clazz.equalsIgnoreCase("ForStatement")) {
-				ForStatement For = (ForStatement) Element;
-
-				System.out.println("For(" + For.getExpression() + ")");
-
-			} else if (clazz.equalsIgnoreCase("IfStatement")) {
-				IfStatement If = (IfStatement) Element;
-				
-				System.out.println("If(" + If.getExpression() + ")");
-
-
-			} else if (clazz.equalsIgnoreCase("TryStatement")) {
-				TryStatement Try = (TryStatement) Element;
-
-				System.out.println("Try:");
-
-			} else if (clazz.equalsIgnoreCase("ExpressionStatement")) {
-
-				ExpressionStatement Expression = (ExpressionStatement) Element;
-				
-				System.out.println(Expression.getExpression());
-
-			} else if (clazz.equalsIgnoreCase("VariableDeclarationStatement")) {
-				VariableDeclarationStatement Variable = (VariableDeclarationStatement) Element;
-				
-				System.out.print(Variable.toString());
-				
-			} else if (clazz.equalsIgnoreCase("MethodInvocation")) {
-				
-				MethodInvocation Method = (MethodInvocation) Element;
-				
-				System.out.println(Method);
-				
-			} else if (clazz.equalsIgnoreCase("MethodDeclaration")) {
-				
-				MethodDeclaration Method = (MethodDeclaration) Element;
-				
-				
-				System.out.println("Method: " + Method.getName() + " | Return Type: " + Method.getReturnType2() +
-						" | Parameters: " + Method.parameters());
-			
-			} else {
-				System.out.println("OTRO: " + clazz);
-			}
-		}
-		
-		for (ASTStorage child : Children) {
-			child.print();
-
-		}
-	}
-
-
 	
 }

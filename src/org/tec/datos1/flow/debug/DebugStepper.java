@@ -3,11 +3,17 @@ package org.tec.datos1.flow.debug;
 import java.util.List;
 
 import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.core.resources.IFile;
 import org.eclipse.debug.core.DebugException;
 import org.eclipse.debug.core.model.IStackFrame;
+import org.eclipse.jdt.core.ICompilationUnit;
+import org.eclipse.jdt.core.JavaCore;
+import org.eclipse.jdt.core.dom.AST;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.MethodInvocation;
 import org.eclipse.jdt.debug.core.IJavaThread;
+import org.eclipse.ui.IWorkbenchPart;
+import org.eclipse.ui.PlatformUI;
 import org.tec.datos1.flow.CodeParser;
 import org.tec.datos1.flow.parts.DiagramView;
 import org.tec.datos1.flow.storage.ASTStorage;
@@ -35,7 +41,7 @@ public class DebugStepper {
 				int currentLine = update();
 				DiagramView.setLineNumber(currentLine);
 				try {
-					CodeParser.execute();
+					//CodeParser.execute();
 					List<String> methods = ASTStorage.getMethods();
 					String[] array = new String[methods.size()];
 					int cont = 0;
@@ -46,8 +52,7 @@ public class DebugStepper {
 					DiagramView.setMethods(array);
 					
 					DiagramView.selectMethod(((MethodInvocation) step.getElement()).getName().toString());
-					DiagramView.setLineNumber(currentLine);
-				} catch (ExecutionException e) {
+				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
@@ -85,14 +90,25 @@ public class DebugStepper {
 	 * se encuentra el debugger en dicho instante.
 	 */
 	public static int update(){
+		
+		IWorkbenchPart workbenchPart = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActivePart();
+    	ICompilationUnit IcUnit = null;
+		
 		try {
+    		IFile file = (IFile) workbenchPart.getSite().getPage().getActiveEditor().getEditorInput().getAdapter(IFile.class);
+    		IcUnit = (ICompilationUnit) JavaCore.create(file);
+    		
+			if(!IcUnit.getElementName().equalsIgnoreCase(ASTStorage.getCompUnit().getJavaElement().getElementName())) {
+				CodeParser.executeSpecific(IcUnit);
+			}
+    		
 			IStackFrame Frame = null;
 			while (Frame == null) {
 				Frame = debugThread.getTopStackFrame();
 				
 			}
 			return Frame.getLineNumber();
-		} catch (DebugException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return 0;

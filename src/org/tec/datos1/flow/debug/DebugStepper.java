@@ -41,7 +41,7 @@ public class DebugStepper {
 				int currentLine = update();
 				DiagramView.setLineNumber(currentLine);
 				try {
-					//CodeParser.execute();
+					CodeParser.execute(); // Por alguna razon esto se ejecuta sobre el archivo original, no al que le hice step into
 					List<String> methods = ASTStorage.getMethods();
 					String[] array = new String[methods.size()];
 					int cont = 0;
@@ -76,7 +76,7 @@ public class DebugStepper {
 			int currentLine = update();
 			DiagramView.setLineNumber(currentLine);
 			if ( !DiagramView.getMethodSelector().getText().equalsIgnoreCase(
-					((MethodDeclaration)ASTStorage.getMethodByLine(currentLine).getElement())
+					((MethodDeclaration)ASTStorage.getMethodByLine(currentLine).getElement())  //Null pointer exception al hacer step into o over a println
 					.getName().toString())) {
 				DiagramView.Select();
 			}

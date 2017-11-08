@@ -119,9 +119,13 @@ public class DiagramView {
 	}
 
 	public static void selectMethod(String method) {
+		System.out.println("Buscando metodo");
+		System.out.println(method);
 		String[] methods = methodSelector.getItems();
 		for(int index = 0; index < methods.length ; index++) {
+			System.out.println("Comparando con " + methods[index]);
 			if (methods[index].equals(method)) {
+				System.out.println("Metodo seleccionado");
 				methodSelector.select(index);
 				Select();
 				

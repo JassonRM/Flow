@@ -12,6 +12,7 @@ import org.eclipse.jdt.debug.core.IJavaThread;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PlatformUI;
 import org.tec.datos1.flow.CodeParser;
+import org.tec.datos1.flow.handlers.Methods;
 import org.tec.datos1.flow.parts.DiagramView;
 import org.tec.datos1.flow.storage.ASTStorage;
 
@@ -38,6 +39,16 @@ public class DebugStepper {
 				int currentLine = update();
 				DiagramView.setLineNumber(currentLine);
 				try {
+					
+					MethodInvocation methodInvoc = (MethodInvocation) step.getElement();
+					ICompilationUnit newUnit = Methods.findClass(methodInvoc.resolveMethodBinding().getDeclaringClass().getQualifiedName());
+					
+					
+					if (!ASTStorage.getCompUnit().getJavaElement().getElementName()
+							.equals(newUnit.getElementName())){
+						CodeParser.executeSpecific(newUnit);
+					}
+					
 					List<String> methods = ASTStorage.getMethods();
 					String[] array = new String[methods.size()];
 					int cont = 0;
@@ -45,9 +56,9 @@ public class DebugStepper {
 						array[cont] = method;
 						cont++;
 					}
-					DiagramView.setMethods(array);
 					
-					DiagramView.selectMethod(((MethodInvocation) step.getElement()).getName().toString());
+					DiagramView.setMethods(array);
+					DiagramView.selectMethod(methodInvoc.getName().toString());
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

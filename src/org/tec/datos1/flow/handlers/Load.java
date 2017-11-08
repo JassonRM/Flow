@@ -15,6 +15,7 @@ public class Load {
 	public void execute(Shell shell) {
 		try {
 			CodeParser.execute();
+			Methods.load();
 			List<String> methods = ASTStorage.getMethods();
 			String[] array = new String[methods.size()];
 			int cont = 0;

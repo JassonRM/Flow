@@ -22,12 +22,11 @@ public class Methods extends ASTVisitor{
 	
 	
 	public static ICompilationUnit findClass(String clazz) {
-		clazz = clazz + ".java";
+		clazz = "src." + clazz + ".java";
 		for(ICompilationUnit current : classes) {
 			
-			String[] lista = current.getResource().getProjectRelativePath().toString().split("/");
-			int pos = lista.length;
-			if (clazz.equals(lista[pos-3] + "." +lista[pos-2] + "." + lista[pos-1])) {
+			String name = current.getResource().getProjectRelativePath().toString().replace("/", ".");
+			if (clazz.equals(name)) {
 				return current;
 			}
 		}

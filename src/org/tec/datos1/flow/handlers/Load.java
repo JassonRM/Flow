@@ -24,6 +24,7 @@ public class Load {
 				cont++;
 			}
 			DiagramView.setMethods(array);
+			DiagramView.setLineNumber(-1);
 			
 		} catch (ExecutionException e) {
 			e.printStackTrace();

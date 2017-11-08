@@ -78,9 +78,13 @@ public class DebugStepper {
 	 */
 	public static void stepOver() {
 		try {
-			debugThread.stepOver();
 			
+			debugThread.stepOver();
+			IJavaThread thread = getDebugThread();
 			int currentLine = update();
+			if (currentLine == -5) {
+				DiagramView.setLineNumber(-1);
+				return;}
 			DiagramView.setLineNumber(currentLine);
 			if ( !DiagramView.getMethodSelector().getText().equalsIgnoreCase(
 					((MethodDeclaration)ASTStorage.getMethodByLine(currentLine).getElement())  //Null pointer exception al hacer step into o over a println
@@ -100,7 +104,12 @@ public class DebugStepper {
 		try {
     		
 			IStackFrame Frame = null;
+			Integer time = 0;
 			while (Frame == null) {
+				if(time == 1000000) {
+					return -5;
+				}
+				time++;
 				Frame = debugThread.getTopStackFrame();
 			}
 			IWorkbenchPart workbenchPart = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActivePart();

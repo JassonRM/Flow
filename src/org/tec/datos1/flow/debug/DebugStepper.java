@@ -89,6 +89,16 @@ public class DebugStepper {
 			if ( !DiagramView.getMethodSelector().getText().equalsIgnoreCase(
 					((MethodDeclaration)ASTStorage.getMethodByLine(currentLine).getElement())  //Null pointer exception al hacer step into o over a println
 					.getName().toString())) {
+				
+				List<String> methods = ASTStorage.getMethods();
+				String[] array = new String[methods.size()];
+				int cont = 0;
+				for(String method : methods) {
+					array[cont] = method;
+					cont++;
+				}
+				
+				DiagramView.setMethods(array);
 				DiagramView.Select();
 			}
 		} catch (Exception e) {

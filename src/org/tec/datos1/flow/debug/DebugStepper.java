@@ -72,7 +72,7 @@ public class DebugStepper {
 			int currentLine = update();
 			DiagramView.setLineNumber(currentLine);
 			if ( !DiagramView.getMethodSelector().getText().equalsIgnoreCase(
-					((MethodDeclaration)ASTStorage.getMethodByLine(currentLine).getElement())
+					((MethodDeclaration)ASTStorage.getMethodByLine(currentLine).getElement())  //Null pointer exception al hacer step into o over a println
 					.getName().toString())) {
 				DiagramView.Select();
 			}

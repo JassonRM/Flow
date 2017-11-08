@@ -103,8 +103,9 @@ public class ASTStorage {
 		ASTStorage result = null;;
 		for (ASTStorage method :root.getChildren()) {
 			if (method.getLineNumber() > Line) {
-				result = method;
+				return result;
 			}
+			result = method;
 		}
 		return result;
 	}

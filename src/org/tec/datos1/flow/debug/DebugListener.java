@@ -40,7 +40,7 @@ public class DebugListener implements IJavaBreakpointListener{
 		try {
 			lineNumber = lineBreak.getLineNumber();
 		}catch(CoreException e) {}
-		
+		DiagramView.setLineNumber(lineNumber);
 		return lineNumber;
 	}
 

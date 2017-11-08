@@ -35,7 +35,6 @@ public class DebugListener implements IJavaBreakpointListener{
 		
 		DebugStepper.setDebugThread(thread);
 		
-		
 		ILineBreakpoint lineBreak = (ILineBreakpoint)breakpoint;
 		int lineNumber = 0; 
 		try {

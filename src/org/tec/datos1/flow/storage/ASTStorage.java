@@ -100,7 +100,7 @@ public class ASTStorage {
 	}
 	
 	public static ASTStorage getMethodByLine(Integer Line) {
-		ASTStorage result = null;;
+		ASTStorage result = null;
 		for (ASTStorage method :root.getChildren()) {
 			if (method.getLineNumber() > Line) {
 				return result;

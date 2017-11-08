@@ -25,7 +25,6 @@ public class MethodVisitor extends ASTVisitor {
     		} 
     	try {
     			ASTStorage storageMethod = new ASTStorage(methodNode,methodNode.getName().toString());
-    			System.out.println(storageMethod.getName());
     			Root.addChild(storageMethod);
     			Block b1 = (Block)methodNode.getBody();
     			storageMethod.addChildren(b1.statements());

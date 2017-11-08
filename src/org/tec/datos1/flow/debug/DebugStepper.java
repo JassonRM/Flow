@@ -2,13 +2,10 @@ package org.tec.datos1.flow.debug;
 
 import java.util.List;
 
-import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IFile;
-import org.eclipse.debug.core.DebugException;
 import org.eclipse.debug.core.model.IStackFrame;
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.JavaCore;
-import org.eclipse.jdt.core.dom.AST;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.MethodInvocation;
 import org.eclipse.jdt.debug.core.IJavaThread;
@@ -41,7 +38,6 @@ public class DebugStepper {
 				int currentLine = update();
 				DiagramView.setLineNumber(currentLine);
 				try {
-					//CodeParser.execute();
 					List<String> methods = ASTStorage.getMethods();
 					String[] array = new String[methods.size()];
 					int cont = 0;
@@ -90,22 +86,18 @@ public class DebugStepper {
 	 * se encuentra el debugger en dicho instante.
 	 */
 	public static int update(){
-		
-		IWorkbenchPart workbenchPart = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActivePart();
-    	ICompilationUnit IcUnit = null;
-		
 		try {
-    		IFile file = (IFile) workbenchPart.getSite().getPage().getActiveEditor().getEditorInput().getAdapter(IFile.class);
-    		IcUnit = (ICompilationUnit) JavaCore.create(file);
-    		
-			if(!IcUnit.getElementName().equalsIgnoreCase(ASTStorage.getCompUnit().getJavaElement().getElementName())) {
-				CodeParser.executeSpecific(IcUnit);
-			}
     		
 			IStackFrame Frame = null;
 			while (Frame == null) {
 				Frame = debugThread.getTopStackFrame();
-				
+			}
+			IWorkbenchPart workbenchPart = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActivePart();
+			IFile file = (IFile) workbenchPart.getSite().getPage().getActiveEditor().getEditorInput().getAdapter(IFile.class);
+    		ICompilationUnit IcUnit = (ICompilationUnit) JavaCore.create(file);
+    		
+			if(!IcUnit.getElementName().equalsIgnoreCase(ASTStorage.getCompUnit().getJavaElement().getElementName())) {
+				CodeParser.executeSpecific(IcUnit);
 			}
 			return Frame.getLineNumber();
 		} catch (Exception e) {

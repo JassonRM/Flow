@@ -103,15 +103,12 @@ public class DiagramView {
 				}
 			}
 			canvas.redraw();
-			lineNumber = -1;
+			
 		} catch (Exception e1) {
 			System.err.println("No se pudo parsear el arbol");
 			e1.printStackTrace();
 			canvas.redraw();
 		}
-		
-		
-		
 	}
 
 	public static void setMethods(String[] methods) {
@@ -124,8 +121,6 @@ public class DiagramView {
 			if (methods[index].equals(method)) {
 				methodSelector.select(index);
 				Select();
-				
-				
 			}
 		}
 	}

@@ -12,12 +12,13 @@ import org.eclipse.swt.events.PaintEvent;
 import org.eclipse.swt.events.PaintListener;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
-
+import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Display;
 import org.tec.datos1.flow.graphics.ASTStorageParser;
 import org.tec.datos1.flow.graphics.Widget;
 import org.tec.datos1.flow.storage.ASTStorage;
@@ -51,6 +52,7 @@ public class DiagramView {
 		methodSelector.setLayoutData(comboLayout);
 		
 		ScrolledComposite container = new ScrolledComposite(parent, SWT.H_SCROLL | SWT.V_SCROLL);
+		container.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_WHITE));
 		container.setLayoutData(diagramLayout);
 		canvas = new Canvas(container, SWT.NONE);
 		canvas.setSize(1000, 1000);
